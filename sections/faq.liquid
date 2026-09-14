@@ -1,0 +1,89 @@
+{%- comment -%}
+  FAQ Section for JSG GOLD
+{%- endcomment -%}
+
+<section class="section" style="padding: 70px 0; background: #f8f9fa;">
+  <div class="container" style="max-width: 900px; margin: 0 auto;">
+    
+    <div style="text-align: center; margin-bottom: 45px;">
+      <span style="color: var(--gold-dark); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 8px;">
+        RESPUESTAS A TUS DUDAS
+      </span>
+      <h2 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--dark-primary);">
+        PREGUNTAS FRECUENTES
+      </h2>
+      <div style="width: 70px; height: 3px; background: var(--gold-metallic); margin: 15px auto 0 auto; border-radius: 2px;"></div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      
+      <!-- FAQ 1 -->
+      <details style="background: #ffffff; border-radius: 10px; border: 1px solid #e0e0e0; padding: 18px 24px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+        <summary style="font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--dark-primary); list-style: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>¿El Oro Laminado 18K se pela o cambia de color?</span>
+          <span style="color: var(--gold-primary); font-size: 1.4rem; font-weight: 400;">+</span>
+        </summary>
+        <p style="margin-top: 14px; color: #555; line-height: 1.7; font-size: 0.95rem;">
+          No. Nuestras joyas cuentan con 3 capas térmicas de oro de 18 kilates fundidas sobre una aleación técnica de alta dureza. No es un baño simple. Toleran el uso diario en piscina, mar, gimnasio y lociones. Entregamos <strong>1 año de garantía escrita</strong>.
+        </p>
+      </details>
+
+      <!-- FAQ 2 -->
+      <details style="background: #ffffff; border-radius: 10px; border: 1px solid #e0e0e0; padding: 18px 24px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+        <summary style="font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--dark-primary); list-style: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>¿Cómo funciona el Pago Contra Entrega?</span>
+          <span style="color: var(--gold-primary); font-size: 1.4rem; font-weight: 400;">+</span>
+        </summary>
+        <p style="margin-top: 14px; color: #555; line-height: 1.7; font-size: 0.95rem;">
+          Realizas tu pedido a través de nuestro botón oficial de WhatsApp o la tienda. Nosotros despachamos el paquete hasta la dirección de tu casa u oficina en Colombia. <strong>Le pagas en efectivo al transportador únicamente cuando recibes y verificas la caja.</strong>
+        </p>
+      </details>
+
+      <!-- FAQ 3 -->
+      <details style="background: #ffffff; border-radius: 10px; border: 1px solid #e0e0e0; padding: 18px 24px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+        <summary style="font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--dark-primary); list-style: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>¿Cuánto tarda en llegar mi pedido?</span>
+          <span style="color: var(--gold-primary); font-size: 1.4rem; font-weight: 400;">+</span>
+        </summary>
+        <p style="margin-top: 14px; color: #555; line-height: 1.7; font-size: 0.95rem;">
+          Los envíos principales (Bogotá, Medellín, Cali, Barranquilla, Bucaramanga) tardan de <strong>1 a 2 días hábiles</strong>. Para municipios secundarios de 2 a 4 días hábiles. Te enviamos la guía de rastreo (Servientrega, Interrapidísimo o Envía) inmediatamente por WhatsApp.
+        </p>
+      </details>
+
+      <!-- FAQ 4 -->
+      <details style="background: #ffffff; border-radius: 10px; border: 1px solid #e0e0e0; padding: 18px 24px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+        <summary style="font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--dark-primary); list-style: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>¿Qué pasa si la medida de la cadena o pulsera no me queda?</span>
+          <span style="color: var(--gold-primary); font-size: 1.4rem; font-weight: 400;">+</span>
+        </summary>
+        <p style="margin-top: 14px; color: #555; line-height: 1.7; font-size: 0.95rem;">
+          Contamos con política de <strong>cambio de talla 100% garantizada</strong>. Nos escribes por WhatsApp, nos envías el paquete de regreso y te despachamos la medida o modelo que desees inmediatamente.
+        </p>
+      </details>
+
+    </div>
+
+    <!-- Direct WhatsApp Help Callout -->
+    <div style="margin-top: 40px; text-align: center; background: rgba(212,175,55,0.08); border: 1px border var(--gold-border); padding: 25px; border-radius: 12px;">
+      <h4 style="font-family: var(--font-display); font-size: 1.1rem; color: var(--dark-primary); margin-bottom: 10px;">
+        ¿Tienes otra pregunta sobre nuestras piezas en Oro 18K?
+      </h4>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Nuestros asesores te responden en menos de 2 minutos por WhatsApp.</p>
+      <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number }}&text=Hola%20JSG%20Gold,%20tengo%20una%20consulta%20antes%20de%20comprar." target="_blank" class="btn btn-primary" style="font-weight: 700;">
+        Hablar con un Asesor VIP
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "presets": [
+    {
+      "name": "FAQ Accordion"
+    }
+  ]
+}
+{% endschema %}
