@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ page_description | escape }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {% if settings.favicon %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {% endif %}
+
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Página {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% render 'meta-tags' %}
+
+  {{ content_for_header }}
+
+  <!-- Google Fonts: Cinzel + Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  {{ 'jsg-gold.css' | asset_url | stylesheet_tag }}
+</head>
+
+<body class="{% if customer %}customer-logged-in {% endif %}template-{{ template.name | handle }}">
+
+  <!-- Skip to content (accessibility) -->
+  <a class="visually-hidden" href="#main-content">Ir al contenido principal</a>
+
+  {%- sections 'announcement-bar' -%}
+  {%- sections 'header' -%}
+
+  <main id="main-content" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {%- sections 'footer' -%}
+
+  <!-- Cart Drawer (Global) -->
+  {%- render 'cart-drawer' -%}
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number | url_encode }}&text={{ settings.whatsapp_greeting | url_encode }}"
+     target="_blank"
+     rel="noopener"
+     class="whatsapp-float-btn"
+     title="Hablar con Asesor VIP por WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.068-2.228-.567-1.748-.724-2.885-2.529-2.973-2.645-.088-.116-.708-.941-.708-1.792s.445-1.272.604-1.444c.159-.172.347-.216.463-.216.116 0 .232.002.333.007.106.006.248-.041.388.295.144.347.491 1.2.535 1.288.043.088.073.188.014.304-.058.116-.087.188-.173.289l-.26.307c-.087.087-.179.183-.077.359.102.176.452.746.97 1.208.667.596 1.23.78 1.403.867.174.087.275.073.377-.044.101-.116.435-.507.55-.681.116-.174.232-.145.39-.087.159.058 1.009.477 1.183.564.174.087.29.13.333.203.044.073.044.423-.1.828z"/>
+      <path d="M20.52 3.449C18.24 1.245 15.24 0 12 0 5.373 0 0 5.373 0 12c0 2.117.553 4.17 1.604 5.978L0 24l6.184-1.622A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12 0-3.203-1.243-6.219-3.48-8.551zM12 22c-1.786 0-3.538-.481-5.07-1.391l-.363-.215-3.671.963.98-3.581-.236-.371A9.96 9.96 0 012 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10z"/>
+    </svg>
+  </a>
+
+  {{ 'jsg-gold.js' | asset_url | script_tag }}
+  {{ 'cart.js' | asset_url | script_tag }}
+
+  <script>
+    // Pass Shopify global data to JS
+    window.JSGGold = {
+      shopName: {{ shop.name | json }},
+      currency: {{ cart.currency.iso_code | json }},
+      moneyFormat: {{ shop.money_format | json }},
+      routes: {
+        cart_url: '{{ routes.cart_url }}',
+        cart_add_url: '{{ routes.root_url }}cart/add.js',
+        cart_change_url: '{{ routes.root_url }}cart/change.js',
+        cart_update_url: '{{ routes.root_url }}cart/update.js',
+        predictive_search_url: '{{ routes.predictive_search_url }}'
+      },
+      whatsappNumber: {{ settings.whatsapp_number | json }},
+      sections: {
+        cart: '?sections=cart-drawer'
+      }
+    };
+  </script>
+
+  {% if content_for_additional_checkout_buttons %}
+    {{ content_for_additional_checkout_buttons }}
+  {% endif %}
+</body>
+</html>

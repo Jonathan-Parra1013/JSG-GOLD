@@ -1,0 +1,68 @@
+<div class="cart-item" data-variant-id="{{ item.variant_id }}" data-key="{{ item.key }}">
+  <!-- Product Image -->
+  <a href="{{ item.url }}" class="cart-item__image-link" tabindex="-1" aria-hidden="true">
+    {%- if item.image -%}
+      {{ item.image | image_url: width: 120 | image_tag:
+        alt: item.image.alt | escape,
+        class: 'cart-item__img',
+        loading: 'lazy',
+        widths: '80, 120, 160'
+      }}
+    {%- else -%}
+      <div class="cart-item__img cart-item__img--placeholder">
+        {%- render 'icon-cart' -%}
+      </div>
+    {%- endif -%}
+  </a>
+
+  <!-- Info -->
+  <div class="cart-item__info">
+    <a href="{{ item.url }}" class="cart-item__name">
+      {{ item.product.title }}
+    </a>
+
+    {%- if item.variant.title != 'Default Title' -%}
+      <div class="cart-item__variant">{{ item.variant.title }}</div>
+    {%- endif -%}
+
+    {%- if item.selling_plan_allocation -%}
+      <div class="cart-item__plan">{{ item.selling_plan_allocation.selling_plan.name }}</div>
+    {%- endif -%}
+
+    <div class="cart-item__price">
+      {%- if item.original_price != item.final_price -%}
+        <span class="cart-item__original-price">{{ item.original_price | money }}</span>
+      {%- endif -%}
+      <span>{{ item.final_price | money }}</span>
+    </div>
+
+    <!-- Quantity Controls -->
+    <div class="cart-qty-ctrl" role="group" aria-label="Cantidad de {{ item.product.title }}">
+      <button class="qty-btn"
+              aria-label="Reducir cantidad"
+              data-action="decrease-qty"
+              data-key="{{ item.key }}"
+              data-quantity="{{ item.quantity | minus: 1 }}"
+              {% if item.quantity <= 1 %}aria-disabled="true"{% endif %}>
+        &minus;
+      </button>
+      <span class="qty-value" aria-live="polite">{{ item.quantity }}</span>
+      <button class="qty-btn"
+              aria-label="Aumentar cantidad"
+              data-action="increase-qty"
+              data-key="{{ item.key }}"
+              data-quantity="{{ item.quantity | plus: 1 }}">
+        &plus;
+      </button>
+    </div>
+  </div>
+
+  <!-- Remove -->
+  <button class="cart-item__remove"
+          aria-label="Eliminar {{ item.product.title }} del carrito"
+          data-action="remove-item"
+          data-key="{{ item.key }}"
+          data-quantity="0">
+    {%- render 'icon-x', size: 16 -%}
+  </button>
+</div>

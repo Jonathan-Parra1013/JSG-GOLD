@@ -1,0 +1,47 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Etiquetado \"{{ tags }}\"",
+      "page": "Página {{ page }}"
+    },
+    "404": {
+      "title": "Página no encontrada",
+      "subtext": "La página que buscas no existe."
+    },
+    "continue_shopping": "Continuar comprando",
+    "search": "Buscar joyas..."
+  },
+  "cart": {
+    "title": "Tu Carrito de Compra",
+    "empty": "Tu carrito está vacío",
+    "subtotal": "Subtotal",
+    "shipping_at_checkout": "Envío y Pago Contra Entrega por WhatsApp",
+    "whatsapp_checkout": "Pedir por WhatsApp (Pago Contra Entrega)",
+    "view_cart": "Ver Carrito"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Agregar al Carrito",
+      "sold_out": "Agotado",
+      "unavailable": "No disponible",
+      "buy_whatsapp": "Comprar Directo por WhatsApp"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Mi Cuenta",
+      "details": "Detalles de la cuenta",
+      "view_addresses": "Ver Direcciones",
+      "orders": "Historial de Pedidos"
+    },
+    "login": {
+      "title": "Iniciar Sesión",
+      "sign_in": "Ingresar",
+      "register_link": "Crear Cuenta"
+    },
+    "register": {
+      "title": "Crear una Cuenta",
+      "submit": "Registrarse"
+    }
+  }
+}

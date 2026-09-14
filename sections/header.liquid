@@ -1,0 +1,94 @@
+<header class="site-header" id="site-header" data-header>
+  <div class="header-container container">
+
+    <!-- Mobile Hamburger (optional) -->
+    <button class="header__menu-toggle hide-desktop" aria-label="Abrir menú" data-menu-toggle>
+      {%- render 'icon-menu' -%}
+    </button>
+
+    <!-- Brand Logo -->
+    <a href="{{ routes.root_url }}" class="logo-brand" aria-label="{{ shop.name }}">
+      {%- if settings.logo != blank -%}
+        {%- assign logo_width = settings.logo_width | default: 140 -%}
+        {{ settings.logo | img_tag: shop.name, loading: 'eager', widths: '140,280', width: logo_width, height: 'auto', class: 'logo-img' }}
+      {%- else -%}
+        <div class="logo-emblem" aria-hidden="true">
+          <span>JSG</span>
+        </div>
+        <div class="logo-text-group">
+          <span class="logo-title">JSG GOLD</span>
+          <span class="logo-subtitle">ORO LAMINADO 18K &bull; LUXURY MEN</span>
+        </div>
+      {%- endif -%}
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="header__nav hide-mobile" aria-label="Navegación principal">
+      <ul class="nav-links" role="list">
+        <li>
+          <a href="{{ routes.root_url }}"
+             class="nav-link {% if request.page_type == 'index' %}active{% endif %}">
+            Inicio
+          </a>
+        </li>
+        {%- for link in linklists['main-menu'].links -%}
+          <li>
+            <a href="{{ link.url }}"
+               class="nav-link {% if link.active %}active{% endif %}"
+               {% if link.current %}aria-current="page"{% endif %}>
+              {{ link.title }}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <!-- Search -->
+      <button class="header-icon-btn" aria-label="Buscar productos" data-search-toggle>
+        {%- render 'icon-search' -%}
+      </button>
+
+      <!-- Account -->
+      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+         class="header-icon-btn"
+         aria-label="{% if customer %}Mi cuenta{% else %}Iniciar sesión{% endif %}">
+        {%- render 'icon-user' -%}
+      </a>
+
+      <!-- Cart Drawer Trigger -->
+      <button class="header-icon-btn cart-trigger" aria-label="Ver carrito" data-cart-trigger aria-expanded="false" aria-controls="cart-drawer">
+        {%- render 'icon-cart' -%}
+        <span class="cart-badge {% if cart.item_count == 0 %}hidden{% endif %}"
+              id="cart-count"
+              aria-label="{{ cart.item_count }} artículos en el carrito">
+          {{ cart.item_count }}
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Drawer (hidden by default) -->
+  <div class="mobile-menu hide-desktop" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="Menú móvil">
+      <ul role="list">
+        <li><a href="{{ routes.root_url }}">Inicio</a></li>
+        {%- for link in linklists['main-menu'].links -%}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {%- endfor -%}
+        <li><a href="{{ routes.account_url }}">Mi Cuenta</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Encabezado",
+  "settings": [],
+  "presets": [
+    { "name": "Encabezado", "category": "Encabezado" }
+  ]
+}
+{% endschema %}

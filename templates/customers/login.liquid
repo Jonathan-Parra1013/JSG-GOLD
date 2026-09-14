@@ -1,0 +1,51 @@
+<div class="login-page container" style="max-width: 500px; padding: 5rem 1.5rem;">
+  <div class="section-header" style="margin-bottom: 2rem;">
+    <span class="section-subtitle">Acceso Exclusivo</span>
+    <h1 class="section-title" style="font-size: 2rem;">Iniciar Sesión</h1>
+    <p class="section-desc">Accede a tu cuenta para ver el estado de tus pedidos de joyería.</p>
+  </div>
+
+  <div style="background: #FFFFFF; border: 1px solid var(--dark-border); border-radius: var(--radius-md); padding: 2rem; box-shadow: var(--shadow-md);">
+    {%- form 'customer_login' -%}
+      {{ form.errors | default_errors }}
+
+      <div class="form-group">
+        <label class="form-label" for="CustomerEmail">Correo Electrónico</label>
+        <input type="email"
+               name="customer[email]"
+               id="CustomerEmail"
+               class="form-control"
+               autocomplete="email"
+               autocapitalize="off"
+               autocorrect="off"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="CustomerPassword">Contraseña</label>
+        <input type="password"
+               name="customer[password]"
+               id="CustomerPassword"
+               class="form-control"
+               autocomplete="current-password"
+               required>
+        <div style="text-align: right; margin-top: 0.4rem;">
+          <a href="{{ routes.account_recover_url }}" style="font-size: 0.8rem; color: var(--gold-dark);">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-gold shine-hover btn-block">
+        Iniciar Sesión en JSG Gold
+      </button>
+    {%- endform -%}
+
+    <div style="text-align: center; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--dark-border);">
+      <p style="font-size: 0.9rem; color: var(--text-secondary);">¿No tienes cuenta?</p>
+      <a href="{{ routes.account_register_url }}" class="btn btn-dark" style="margin-top: 0.5rem; display: inline-flex;">
+        Registrarme como Cliente VIP
+      </a>
+    </div>
+  </div>
+</div>

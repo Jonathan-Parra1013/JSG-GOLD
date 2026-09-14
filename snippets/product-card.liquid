@@ -1,0 +1,112 @@
+<!-- Product Card Snippet - Render with: render 'product-card', product: product -->
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign product_url = product.url | within: collection -%}
+
+<article class="product-card" data-product-id="{{ product.id }}">
+  <!-- Image -->
+  <div class="product-card__image-wrap">
+    <a href="{{ product_url }}" class="product-card__image-link" aria-label="{{ product.title | escape }}">
+      {%- if product.featured_media -%}
+        {{ product.featured_media | image_url: width: 600 | image_tag:
+          alt: product.featured_media.alt | escape | default: product.title,
+          class: 'product-card-img',
+          loading: 'lazy',
+          widths: '300, 450, 600',
+          data-main-image: ''
+        }}
+        {%- if product.media[1] -%}
+          {{ product.media[1] | image_url: width: 600 | image_tag:
+            alt: product.title,
+            class: 'product-card-img product-card-img--hover',
+            loading: 'lazy',
+            widths: '300, 450, 600'
+          }}
+        {%- endif -%}
+      {%- else -%}
+        <div class="product-card__no-image">
+          {%- render 'icon-star' -%}
+        </div>
+      {%- endif -%}
+    </a>
+
+    <!-- Badges -->
+    <div class="product-badges-container" aria-label="Etiquetas del producto">
+      {%- if product.metafields.jsg.badge != blank -%}
+        <span class="badge-pill-gold">{{ product.metafields.jsg.badge }}</span>
+      {%- elsif product.tags contains 'bestseller' -%}
+        <span class="badge-pill-gold">Más Vendido</span>
+      {%- elsif product.tags contains 'new' or product.tags contains 'nuevo' -%}
+        <span class="badge-pill-gold">Nuevo</span>
+      {%- endif -%}
+
+      {%- if current_variant.compare_at_price > current_variant.price -%}
+        {%- assign discount = current_variant.compare_at_price | minus: current_variant.price -%}
+        {%- assign discount_pct = discount | times: 100 | divided_by: current_variant.compare_at_price -%}
+        <span class="badge-pill-sale">-{{ discount_pct }}%</span>
+      {%- endif -%}
+
+      <span class="badge-pill-cod">📦 Pago Contra Entrega</span>
+    </div>
+
+    <!-- Quick Add Overlay -->
+    <div class="card-quick-actions">
+      {%- form 'product', product, id: product.id, data-quick-add-form: '' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+        <button type="submit"
+                class="btn-quick-view"
+                name="add"
+                aria-label="Agregar {{ product.title | escape }} al carrito rápidamente"
+                {% unless current_variant.available %}disabled{% endunless %}>
+          {%- render 'icon-cart', size: 16 -%}
+          Agregar al Carrito
+        </button>
+      {%- endform -%}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="product-card-content">
+    {%- if product.type != blank -%}
+      <span class="product-category-label">{{ product.type | upcase }} • ORO 18K</span>
+    {%- endif -%}
+
+    <h3 class="product-title">
+      <a href="{{ product_url }}">{{ product.title }}</a>
+    </h3>
+
+    <!-- Stars (metafield or static 5) -->
+    <div class="product-rating" aria-label="Calificación 5 de 5 estrellas">
+      <div class="stars-wrap" aria-hidden="true">★★★★★</div>
+      {%- if product.metafields.reviews.rating_count != blank -%}
+        <span class="reviews-text">({{ product.metafields.reviews.rating_count }} reseñas)</span>
+      {%- endif -%}
+    </div>
+
+    <!-- Price -->
+    <div class="product-price-row">
+      {%- if current_variant.compare_at_price > current_variant.price -%}
+        <span class="original-price">
+          <s>{{ current_variant.compare_at_price | money }}</s>
+        </span>
+      {%- endif -%}
+      <span class="current-price">{{ current_variant.price | money }}</span>
+    </div>
+
+    <!-- Add to Cart -->
+    {%- form 'product', product, id: product.id, data-product-form: '', novalidate: '' -%}
+      <input type="hidden" name="id" value="{{ current_variant.id }}">
+      <button type="submit"
+              class="btn btn-gold shine-hover btn-block"
+              name="add"
+              data-add-to-cart
+              {% unless current_variant.available %}disabled{% endunless %}>
+        {%- render 'icon-cart', size: 18 -%}
+        {%- if current_variant.available -%}
+          Añadir al Carrito
+        {%- else -%}
+          Agotado
+        {%- endif -%}
+      </button>
+    {%- endform -%}
+  </div>
+</article>

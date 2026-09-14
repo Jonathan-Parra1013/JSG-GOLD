@@ -1,0 +1,125 @@
+{
+  "name": "Personalización JSG Gold",
+  "theme_author": "JSG Gold",
+  "theme_version": "1.0.0",
+  "settings": [
+    {
+      "name": "Colores y Tipografía",
+      "settings": [
+        {
+          "type": "color",
+          "id": "color_gold_primary",
+          "label": "Color Oro Principal",
+          "default": "#D4AF37"
+        },
+        {
+          "type": "color",
+          "id": "color_dark_primary",
+          "label": "Color Negro / Oscuro Principal",
+          "default": "#0A0B0D"
+        },
+        {
+          "type": "color",
+          "id": "color_background",
+          "label": "Color de Fondo Principal",
+          "default": "#FFFFFF"
+        }
+      ]
+    },
+    {
+      "name": "Marca & Contacto",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "favicon",
+          "label": "Favicon de la tienda"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo de JSG Gold"
+        },
+        {
+          "type": "range",
+          "id": "logo_width",
+          "label": "Ancho del Logo",
+          "min": 80,
+          "max": 250,
+          "step": 5,
+          "unit": "px",
+          "default": 140
+        },
+        {
+          "type": "text",
+          "id": "whatsapp_number",
+          "label": "Número de WhatsApp (con código de país, sin +)",
+          "default": "573001234567",
+          "info": "Ejemplo: 573001234567 para Colombia (+57 300 123 4567)"
+        },
+        {
+          "type": "text",
+          "id": "whatsapp_greeting",
+          "label": "Mensaje de saludo del botón flotante de WhatsApp",
+          "default": "Hola JSG Gold 👋 Quiero información sobre sus joyas de Oro Laminado 18K"
+        }
+      ]
+    },
+    {
+      "name": "Carrito y Checkout",
+      "settings": [
+        {
+          "type": "select",
+          "id": "cart_type",
+          "label": "Tipo de Carrito",
+          "default": "drawer",
+          "options": [
+            { "value": "drawer", "label": "Cajón Lateral (Drawer)" },
+            { "value": "page", "label": "Página de Carrito" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "show_cart_note",
+          "label": "Mostrar campo de nota en el carrito",
+          "default": true
+        },
+        {
+          "type": "number",
+          "id": "free_shipping_threshold",
+          "label": "Monto mínimo para envío gratis (en COP sin puntos)",
+          "default": 250000,
+          "info": "Ponlo en 0 para desactivar la barra de envío gratis"
+        },
+        {
+          "type": "text",
+          "id": "whatsapp_checkout_prefix",
+          "label": "Texto inicial del mensaje de WhatsApp al hacer pedido",
+          "default": "¡Hola JSG Gold! 👑 Quiero realizar el siguiente pedido de joyería en Oro Laminado 18K:"
+        }
+      ]
+    },
+    {
+      "name": "Redes Sociales",
+      "settings": [
+        {
+          "type": "text",
+          "id": "social_instagram",
+          "label": "URL de Instagram",
+          "default": "https://instagram.com/jsggold"
+        },
+        {
+          "type": "text",
+          "id": "social_facebook",
+          "label": "URL de Facebook",
+          "default": "https://facebook.com/jsggold"
+        },
+        {
+          "type": "text",
+          "id": "social_tiktok",
+          "label": "URL de TikTok",
+          "default": "https://tiktok.com/@jsggold"
+        }
+      ]
+    }
+  ]
+}

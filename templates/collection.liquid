@@ -1,0 +1,86 @@
+{{ 'main-collection.css' | asset_url | stylesheet_tag }}
+
+<div class="collection-page">
+  <div class="container">
+
+    <!-- Collection Header -->
+    <div class="collection-header">
+      <h1 class="section-title">
+        {%- if collection.title -%}
+          {{ collection.title }}
+        {%- else -%}
+          Catálogo de Joyería en Oro 18K
+        {%- endif -%}
+      </h1>
+      {%- if collection.description != blank -%}
+        <div class="collection-description section-desc">
+          {{ collection.description }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Filters & Sort Toolbar -->
+    <div class="catalog-toolbar">
+      <!-- Filter by Tag (Product type) -->
+      <div class="catalog-filters-group" role="group" aria-label="Filtrar por categoría">
+        <a href="{{ collection.url }}"
+           class="filter-chip {% unless current_tags %}active{% endunless %}">
+          Todos
+        </a>
+        {%- for tag in collection.all_tags -%}
+          {%- if tag != 'bestseller' and tag != 'new' and tag != 'nuevo' -%}
+            <a href="{{ collection.url }}/{{ tag | handle }}"
+               class="filter-chip {% if current_tags contains tag %}active{% endif %}">
+              {{ tag | capitalize }}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <!-- Sort select (Shopify native) -->
+      <div class="catalog-sort-wrap">
+        <label for="sort-by" class="visually-hidden">Ordenar por</label>
+        <select id="sort-by"
+                name="sort_by"
+                class="filter-select"
+                data-sort-by
+                aria-label="Ordenar productos">
+          {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>
+              {{ option.name }}
+            </option>
+          {%- endfor -%}
+        </select>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    {%- paginate collection.products by 12 -%}
+      {%- if collection.products.size > 0 -%}
+        <div class="products-grid" id="products-grid">
+          {%- for product in collection.products -%}
+            {%- render 'product-card', product: product, collection: collection -%}
+          {%- endfor -%}
+        </div>
+
+        <!-- Pagination -->
+        {%- if paginate.pages > 1 -%}
+          <div class="pagination-wrap">
+            {{ paginate | default_pagination | replace: '&laquo; Previous', '← Anterior' | replace: 'Next &raquo;', 'Siguiente →' }}
+          </div>
+        {%- endif -%}
+
+      {%- else -%}
+        <div class="collection-empty" style="text-align:center; padding: 4rem 1rem;">
+          <h3 style="font-family: var(--font-display);">Pronto habrá joyas en esta categoría</h3>
+          <p>Estamos preparando nuevas piezas exclusivas para ti.</p>
+          <a href="{{ routes.collections_url }}/all" class="btn btn-gold shine-hover" style="margin-top:1rem; display:inline-flex;">
+            Ver Todo el Catálogo
+          </a>
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+
+  </div>
+</div>

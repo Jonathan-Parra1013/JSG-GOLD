@@ -1,0 +1,97 @@
+<!-- Cart Drawer - uses Shopify Cart API, rendered as Liquid section -->
+<div id="cart-drawer-backdrop" class="cart-drawer-backdrop" aria-hidden="true">
+  <div id="cart-drawer"
+       class="cart-drawer"
+       role="dialog"
+       aria-modal="true"
+       aria-label="Carrito de compras"
+       tabindex="-1">
+
+    <!-- Header -->
+    <div class="cart-drawer__header">
+      <div class="cart-header-title">
+        {%- render 'icon-cart' -%}
+        <span>Tu Carrito JSG Gold</span>
+      </div>
+      <button class="cart-close-btn" aria-label="Cerrar carrito" data-cart-close>
+        {%- render 'icon-x' -%}
+      </button>
+    </div>
+
+    {%- assign free_shipping_threshold = settings.free_shipping_threshold | default: 250000 -%}
+
+    <!-- Free Shipping Progress Bar -->
+    {%- if free_shipping_threshold > 0 -%}
+    <div class="free-shipping-bar" id="free-shipping-bar"
+         data-threshold="{{ free_shipping_threshold }}">
+      <div class="free-shipping-text" id="shipping-progress-text">
+        Cargando...
+      </div>
+      <div class="shipping-progress-track">
+        <div class="shipping-progress-fill" id="shipping-progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+    {%- endif -%}
+
+    <!-- Items List -->
+    <div class="cart-drawer__items" id="cart-items" aria-live="polite">
+      {%- if cart.item_count == 0 -%}
+        {%- render 'cart-empty-state' -%}
+      {%- else -%}
+        {%- for item in cart.items -%}
+          {%- render 'cart-item', item: item -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    <!-- Footer / Summary -->
+    <div class="cart-drawer__footer" id="cart-footer" {% if cart.item_count == 0 %}style="display:none"{% endif %}>
+
+      {%- if settings.show_cart_note -%}
+      <div class="cart-note-wrap">
+        <label class="form-label" for="CartNote">Notas del pedido (opcional)</label>
+        <textarea id="CartNote"
+                  class="form-control"
+                  name="note"
+                  rows="2"
+                  placeholder="Indicaciones especiales, talla personalizada, etc."
+                  data-cart-note>{{ cart.note }}</textarea>
+      </div>
+      {%- endif -%}
+
+      <div class="cart-summary">
+        <div class="cart-summary-row">
+          <span>Subtotal:</span>
+          <span id="cart-subtotal"
+                class="cart-subtotal"
+                data-raw="{{ cart.total_price }}">
+            {{ cart.total_price | money }}
+          </span>
+        </div>
+        <div class="cart-summary-row" style="color: #10B981; font-size: 0.85rem;">
+          <span>Envío a nivel nacional:</span>
+          <span style="font-weight: 700;">¡GRATIS!</span>
+        </div>
+      </div>
+
+      <!-- CTA WhatsApp Checkout (única opción de pago) -->
+      <button class="btn btn-whatsapp btn-block shine-hover"
+              id="whatsapp-checkout-btn"
+              data-action="whatsapp-checkout">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.068-2.228-.567-1.748-.724-2.885-2.529-2.973-2.645-.088-.116-.708-.941-.708-1.792s.445-1.272.604-1.444c.159-.172.347-.216.463-.216.116 0 .232.002.333.007.106.006.248-.041.388.295.144.347.491 1.2.535 1.288.043.088.073.188.014.304-.058.116-.087.188-.173.289l-.26.307c-.087.087-.179.183-.077.359.102.176.452.746.97 1.208.667.596 1.23.78 1.403.867.174.087.275.073.377-.044.101-.116.435-.507.55-.681.116-.174.232-.145.39-.087.159.058 1.009.477 1.183.564.174.087.29.13.333.203.044.073.044.423-.1.828z"/>
+          <path d="M20.52 3.449C18.24 1.245 15.24 0 12 0 5.373 0 0 5.373 0 12c0 2.117.553 4.17 1.604 5.978L0 24l6.184-1.622A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12 0-3.203-1.243-6.219-3.48-8.551zM12 22c-1.786 0-3.538-.481-5.07-1.391l-.363-.215-3.671.963.98-3.581-.236-.371A9.96 9.96 0 012 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10z"/>
+        </svg>
+        Pedir por WhatsApp (Pago Contra Entrega)
+      </button>
+
+      <p class="cart-cod-notice">
+        {%- render 'icon-shield', size: 14 -%}
+        Pagas en efectivo cuando recibes tu joya. Sin tarjeta. Sin riesgo.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Item sub-render -->
+{%- comment -%}This snippet is also rendered via AJAX{%- endcomment -%}

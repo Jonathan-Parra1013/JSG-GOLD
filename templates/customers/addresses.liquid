@@ -1,0 +1,51 @@
+{%- comment -%}
+  Customer Addresses Template for JSG GOLD (Shopify Native)
+{%- endcomment -%}
+
+<section class="section" style="padding: 60px 0; background: #fafafa; min-height: 70vh;">
+  <div class="container" style="max-width: 800px; margin: 0 auto;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid var(--color-gold); padding-bottom: 10px;">
+      <h1 style="font-family: var(--font-heading); font-size: 2rem; font-weight: 700; text-transform: uppercase;">
+        Mis Direcciones de Envío
+      </h1>
+      <a href="/account" class="btn btn-outline btn-sm">Volver a Mi Cuenta</a>
+    </div>
+
+    {% paginate customer.addresses by 5 %}
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        {% for address in customer.addresses %}
+          <div style="background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px;">
+            <div>
+              {% if address == customer.default_address %}
+                <span style="background: var(--color-gold); color: #000; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 8px; display: inline-block;">
+                  Dirección Principal
+                </span>
+              {% endif %}
+              <h3 style="font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 6px; font-weight: 700;">
+                {{ address.name }}
+              </h3>
+              <p style="color: #555; margin: 0; font-size: 0.9rem; line-height: 1.5;">
+                {{ address.address1 }} {% if address.address2 != blank %}, {{ address.address2 }}{% endif %}<br>
+                {{ address.city }}, {{ address.province }} {{ address.zip }}<br>
+                {{ address.country }}<br>
+                <strong>Teléfono:</strong> {{ address.phone }}
+              </p>
+            </div>
+          </div>
+        {% else %}
+          <div style="background: #fff; padding: 30px; text-align: center; border-radius: 8px; color: #777;">
+            No tienes direcciones guardadas en tu perfil.
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        <div style="margin-top: 25px; text-align: center;">
+          {{ paginate | default_pagination }}
+        </div>
+      {% endif %}
+    {% endpaginate %}
+
+  </div>
+</section>

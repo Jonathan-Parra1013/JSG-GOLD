@@ -1,0 +1,67 @@
+<div class="login-page container" style="max-width: 550px; padding: 5rem 1.5rem;">
+  <div class="section-header" style="margin-bottom: 2rem;">
+    <span class="section-subtitle">Únete al Club VIP</span>
+    <h1 class="section-title" style="font-size: 2rem;">Crear Cuenta</h1>
+    <p class="section-desc">Regístrate para rastrear tus pedidos y acceder a beneficios exclusivos de la membresía JSG Gold.</p>
+  </div>
+
+  <div style="background: #FFFFFF; border: 1px solid var(--dark-border); border-radius: var(--radius-md); padding: 2rem; box-shadow: var(--shadow-md);">
+    {%- form 'create_customer' -%}
+      {{ form.errors | default_errors }}
+
+      <div class="form-row-2">
+        <div class="form-group">
+          <label class="form-label" for="FirstName">Nombre</label>
+          <input type="text"
+                 name="customer[first_name]"
+                 id="FirstName"
+                 class="form-control"
+                 autocomplete="given-name"
+                 autocapitalize="words">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="LastName">Apellido</label>
+          <input type="text"
+                 name="customer[last_name]"
+                 id="LastName"
+                 class="form-control"
+                 autocomplete="family-name"
+                 autocapitalize="words">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="Email">Correo Electrónico</label>
+        <input type="email"
+               name="customer[email]"
+               id="Email"
+               class="form-control"
+               autocomplete="email"
+               autocapitalize="off"
+               autocorrect="off"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="CreatePassword">Contraseña</label>
+        <input type="password"
+               name="customer[password]"
+               id="CreatePassword"
+               class="form-control"
+               autocomplete="new-password"
+               required>
+      </div>
+
+      <button type="submit" class="btn btn-gold shine-hover btn-block">
+        Crear mi Cuenta VIP JSG Gold
+      </button>
+    {%- endform -%}
+
+    <div style="text-align: center; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--dark-border);">
+      <p style="font-size: 0.9rem; color: var(--text-secondary);">¿Ya tienes cuenta?</p>
+      <a href="{{ routes.account_login_url }}" class="btn btn-dark" style="margin-top: 0.5rem; display: inline-flex;">
+        Iniciar Sesión
+      </a>
+    </div>
+  </div>
+</div>

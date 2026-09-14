@@ -1,0 +1,193 @@
+<!-- Account page - Shopify native customer account -->
+{%- if customer -%}
+
+<div class="account-page container" style="padding: 4rem 1.5rem;">
+
+  <!-- Account Header -->
+  <div class="account-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <span class="section-subtitle">Panel de Cliente VIP</span>
+      <h1 class="section-title" style="font-size: 2rem; text-align: left;">
+        Hola, {{ customer.first_name }}
+      </h1>
+    </div>
+    <a href="{{ routes.account_logout_url }}" class="btn btn-dark" style="font-size: 0.82rem;">
+      Cerrar Sesión
+    </a>
+  </div>
+
+  <div class="profile-layout">
+    <!-- Sidebar -->
+    <div class="profile-sidebar">
+      <div class="user-avatar-card">
+        <div class="avatar-circle" aria-hidden="true">
+          {{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}
+        </div>
+        <h4 style="font-size: 1.1rem; color: var(--dark-primary);">
+          {{ customer.name }}
+        </h4>
+        <span class="gold-badge" style="margin-top: 0.4rem;">JSG BLACK MEMBER VIP</span>
+        <span style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem; display: block;">
+          {{ customer.email }}
+        </span>
+      </div>
+
+      <a href="#account-orders" class="profile-nav-btn active">
+        {%- render 'icon-cart', size: 18 -%}
+        Mis Pedidos
+      </a>
+      <a href="{{ routes.account_addresses_url }}" class="profile-nav-btn">
+        {%- render 'icon-user', size: 18 -%}
+        Mis Direcciones de Envío
+      </a>
+      <a href="#account-benefits" class="profile-nav-btn">
+        {%- render 'icon-star', size: 18 -%}
+        Beneficios del Club VIP
+      </a>
+    </div>
+
+    <!-- Main Orders Area -->
+    <div class="profile-main-content">
+
+      <!-- ORDERS SECTION - Native Shopify orders -->
+      <div id="account-orders">
+        <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--dark-primary); margin-bottom: 1.25rem;">
+          Historial de Pedidos y Envíos
+        </h2>
+
+        {%- if customer.orders.size > 0 -%}
+          {%- for order in customer.orders -%}
+            <div class="order-tracking-card" itemscope itemtype="http://schema.org/Order">
+              <div class="tracking-header">
+                <div>
+                  <span class="gold-badge">
+                    PEDIDO {{ order.name }}
+                  </span>
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem;">
+                    Fecha: {{ order.created_at | date: "%d de %B, %Y" }}
+                  </div>
+                </div>
+                <div style="text-align: right;">
+                  <span style="font-size: 0.78rem; color: var(--text-muted);">Total:</span>
+                  <div style="font-size: 1.25rem; font-weight: 800; color: var(--dark-primary);">
+                    {{ order.total_price | money }}
+                  </div>
+                  <span class="order-fulfillment-badge"
+                        data-status="{{ order.fulfillment_status }}">
+                    {%- case order.fulfillment_status -%}
+                      {%- when 'fulfilled' -%}✓ Entregado
+                      {%- when 'partial' -%}⚡ Entrega Parcial
+                      {%- when 'restocked' -%}↩ Devuelto
+                      {%- else -%}🚚 En Proceso
+                    {%- endcase -%}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Live Tracking Timeline (based on fulfillment_status) -->
+              {%- assign step = 1 -%}
+              {%- case order.fulfillment_status -%}
+                {%- when 'fulfilled' -%}{%- assign step = 4 -%}
+                {%- when 'partial' -%}{%- assign step = 3 -%}
+                {%- else -%}
+                  {%- case order.financial_status -%}
+                    {%- when 'paid' -%}{%- assign step = 2 -%}
+                    {%- else -%}{%- assign step = 1 -%}
+                  {%- endcase -%}
+              {%- endcase -%}
+
+              <div class="timeline-steps" aria-label="Estado del envío">
+                <div class="timeline-step {% if step >= 1 %}completed{% endif %}">
+                  <div class="step-circle">{% if step > 1 %}✓{% else %}1{% endif %}</div>
+                  <span class="step-label">Confirmado</span>
+                </div>
+                <div class="timeline-step {% if step >= 2 %}{% if step == 2 %}active{% else %}completed{% endif %}{% endif %}">
+                  <div class="step-circle">{% if step > 2 %}✓{% else %}2{% endif %}</div>
+                  <span class="step-label">Empaque Lujo</span>
+                </div>
+                <div class="timeline-step {% if step >= 3 %}{% if step == 3 %}active{% else %}completed{% endif %}{% endif %}">
+                  <div class="step-circle">{% if step > 3 %}✓{% else %}3{% endif %}</div>
+                  <span class="step-label">En Tránsito</span>
+                </div>
+                <div class="timeline-step {% if step >= 4 %}completed{% endif %}">
+                  <div class="step-circle">{% if step >= 4 %}✓{% else %}4{% endif %}</div>
+                  <span class="step-label">Entregado</span>
+                </div>
+              </div>
+
+              <!-- Order Items -->
+              <div style="background: var(--bg-secondary); border-radius: var(--radius-sm); padding: 1rem;">
+                {%- for line_item in order.line_items -%}
+                  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; padding: 0.4rem 0; {% unless forloop.last %}border-bottom: 1px solid rgba(10,11,13,0.06);{% endunless %}">
+                    <div>
+                      <strong style="color: var(--dark-primary);">{{ line_item.title }}</strong>
+                      {%- if line_item.variant.title != 'Default Title' -%}
+                        <div style="font-size: 0.75rem; color: var(--gold-dark);">{{ line_item.variant.title }} × {{ line_item.quantity }}</div>
+                      {%- endif -%}
+                    </div>
+                    <span style="font-weight: 700; color: var(--dark-primary);">{{ line_item.final_line_price | money }}</span>
+                  </div>
+                {%- endfor -%}
+              </div>
+
+              <!-- WhatsApp Follow-up for this order -->
+              {%- assign wa_msg = "Hola JSG Gold 👑 Quiero consultar el estado de mi pedido " | append: order.name -%}
+              <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number }}&text={{ wa_msg | url_encode }}"
+                 target="_blank"
+                 rel="noopener"
+                 class="btn btn-whatsapp shine-hover"
+                 style="margin-top: 1rem; width: 100%; display: flex; justify-content: center; align-items: center; gap: 0.5rem; font-size: 0.85rem; padding: 0.65rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12 0 5.373 0 0 5.373 0 12c0 2.117.553 4.17 1.604 5.978L0 24l6.184-1.622A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12 0-3.203-1.243-6.219-3.48-8.551z"/></svg>
+                Consultar Estado por WhatsApp
+              </a>
+            </div>
+          {%- endfor -%}
+
+        {%- else -%}
+          <div class="order-tracking-card" style="text-align: center; padding: 2.5rem;">
+            <p style="color: var(--text-secondary); margin-bottom: 1.25rem;">
+              Aún no tienes pedidos registrados. Explora el catálogo y realiza tu primera compra de joyería en Oro Laminado 18K.
+            </p>
+            <a href="{{ routes.collections_url }}/all" class="btn btn-gold shine-hover">
+              Ver Catálogo de Joyas
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- BENEFITS Section -->
+      <div id="account-benefits" style="margin-top: 2rem;">
+        <div style="background: linear-gradient(135deg, #0A0B0E, #181B22); color: #FFFFFF; border-radius: var(--radius-md); padding: 2rem; border: 1px solid var(--gold-primary);">
+          <span class="gold-badge" style="margin-bottom: 0.75rem; display: inline-flex;">ESTATUS: JSG BLACK MEMBER</span>
+          <h3 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--gold-light); margin-bottom: 0.75rem;">
+            Beneficios Exclusivos de Membresía
+          </h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.95rem; margin-top: 1rem;">
+            <li style="display: flex; align-items: center; gap: 0.6rem;">
+              <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
+              <strong>10% OFF Vitalicio</strong> en tu próximo pedido — contáctanos por WhatsApp para activarlo
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.6rem;">
+              <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
+              Acceso anticipado a nuevos lanzamientos de cadenas cubanas pesadas
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.6rem;">
+              <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
+              Asesor de estilo masculino VIP por WhatsApp disponible para ti
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.6rem;">
+              <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
+              Envíos asegurados con garantía y certificado de 18K en cada joya
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{%- else -%}
+  <!-- Not logged in: redirect to login -->
+  <script>window.location.href = '{{ routes.account_login_url }}';</script>
+{%- endif -%}

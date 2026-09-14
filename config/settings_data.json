@@ -1,0 +1,28 @@
+{
+  "current": {
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true,
+          "announcement_text": "🔥 ENVIOS GRATIS Y PAGO CONTRA ENTREGA EN TODA COLOMBIA | GARANTÍA 1 AÑO EN ORO LAMINADO 18K"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
+  },
+  "presets": {
+    "Default": {
+      "whatsapp_number": "573000000000",
+      "free_shipping_threshold": 150000
+    }
+  }
+}

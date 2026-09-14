@@ -1,0 +1,79 @@
+{%- comment -%}
+  Footer Section for JSG GOLD
+{%- endcomment -%}
+
+<footer style="background: #000000; color: #888; padding: 60px 0 30px 0; border-top: 1px solid #222; font-size: 0.9rem;">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 50px;">
+      
+      <!-- Brand info -->
+      <div>
+        <h3 style="font-family: var(--font-heading); color: var(--color-gold); font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 15px;">
+          JSG GOLD
+        </h3>
+        <p style="color: #aaa; line-height: 1.6; margin-bottom: 20px; font-size: 0.85rem;">
+          Joyería masculina exclusiva en Oro Laminado 18K. Diseños sobrios, macizos y elegantes con 1 año de garantía.
+        </p>
+        <div style="color: #fff; font-weight: 600; font-size: 0.85rem;">
+           Envío y Pago Contra Entrega en Colombia
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <h4 style="color: #fff; font-size: 1rem; margin-bottom: 18px; text-transform: uppercase; font-family: var(--font-heading); letter-spacing: 1px;">
+          Navegación
+        </h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+          <li><a href="/" style="color: #aaa; text-decoration: none;">Inicio</a></li>
+          <li><a href="/collections/all" style="color: #aaa; text-decoration: none;">Catálogo Completo</a></li>
+          {% if customer %}
+            <li><a href="/account" style="color: #aaa; text-decoration: none;">Mi Cuenta</a></li>
+          {% else %}
+            <li><a href="/account/login" style="color: #aaa; text-decoration: none;">Iniciar Sesión</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <!-- Customer Service -->
+      <div>
+        <h4 style="color: #fff; font-size: 1rem; margin-bottom: 18px; text-transform: uppercase; font-family: var(--font-heading); letter-spacing: 1px;">
+          Atención al Cliente
+        </h4>
+        <p style="color: #aaa; margin-bottom: 10px;">¿Dudas con tu pedido o medidas?</p>
+        <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number }}&text=Hola%20JSG%20Gold,%20tengo%20una%20consulta." target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 8px;">
+          <span>Escribir a WhatsApp</span>
+        </a>
+      </div>
+
+      <!-- Payment / Shipping Guarantee -->
+      <div>
+        <h4 style="color: #fff; font-size: 1rem; margin-bottom: 18px; text-transform: uppercase; font-family: var(--font-heading); letter-spacing: 1px;">
+          Garantía y Seguridad
+        </h4>
+        <div style="background: #111; padding: 15px; border-radius: 6px; border: 1px solid #222;">
+          <strong style="color: var(--color-gold); display: block; margin-bottom: 5px;">Pago 100% Seguro</strong>
+          <span style="font-size: 0.8rem; color: #888; display: block; line-height: 1.4;">
+            No pagas nada por adelantado. El pedido se liquida en efectivo al repartidor al recibir el paquete.
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="border-top: 1px solid #1a1a1a; padding-top: 25px; text-align: center; font-size: 0.8rem; color: #555;">
+      <p style="margin: 0;">&copy; {{ 'now' | date: "%Y" }} JSG GOLD. Todos los derechos reservados. Desarrollado para Shopify.</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
+{% endschema %}

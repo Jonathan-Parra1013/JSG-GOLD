@@ -1,0 +1,73 @@
+{%- comment -%}
+  Featured Collection Section for JSG GOLD
+{%- endcomment -%}
+
+{%- assign collection = collections[section.settings.collection] -%}
+
+<section class="section" style="padding: 60px 0; background: #fafafa;">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 45px;">
+      <h2 style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--color-black);">
+        {{ section.settings.title | default: 'Colección Destacada' }}
+      </h2>
+      <div style="width: 60px; height: 3px; background: var(--color-gold); margin: 15px auto 0 auto;"></div>
+    </div>
+
+    {% if collection != blank and collection.products.size > 0 %}
+      <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px;">
+        {% for product in collection.products limit: section.settings.products_to_show %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px;">
+        {% for product in collections.all.products limit: section.settings.products_to_show %}
+          {% render 'product-card', product: product %}
+        {% else %}
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: #fff; border-radius: 8px;">
+            <p style="color: #888;">Agrega productos desde tu **Panel de Administración de Shopify** para visualizarlos aquí.</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 45px;">
+      <a href="{{ collection.url | default: '/collections/all' }}" class="btn btn-outline btn-lg">
+        Ver Todo el Catálogo
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título de la Sección",
+      "default": "JOYAS MÁS VENDIDAS"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colección a Mostrar"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "default": 8,
+      "label": "Número de productos a mostrar"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}
