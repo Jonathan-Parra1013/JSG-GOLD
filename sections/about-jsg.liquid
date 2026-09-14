@@ -2,57 +2,82 @@
   About JSG Section for JSG GOLD (Sobre Nosotros & Comparación Oro 18K)
 {%- endcomment -%}
 
-<section class="section" style="padding: 70px 0; background: #ffffff;">
+<section class="section" style="padding: 85px 0; background: #ffffff;">
   <div class="container">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; align-items: center;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 60px; align-items: center;">
+      
       <div>
-        <span style="color: var(--color-gold-dark); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 10px;">
-          SOBRE JSG GOLD
-        </span>
-        <h2 style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 700; color: var(--color-black); margin-bottom: 20px; line-height: 1.3;">
-          DISTINCIÓN, MASCULINIDAD Y ELEGANCIA INALTERABLE
+        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(212, 175, 55, 0.12); border: 1px solid var(--gold-primary); padding: 6px 16px; border-radius: 30px; margin-bottom: 20px;">
+          <span style="color: var(--gold-dark); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-size: 0.78rem;">
+            HISTORIA & CALIDAD
+          </span>
+        </div>
+
+        <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 900; color: var(--dark-primary); margin-bottom: 20px; line-height: 1.25; text-transform: uppercase;">
+          JSG GOLD: DISTINCIÓN, MASCULINIDAD Y ELEGANCIA INALTERABLE
         </h2>
-        <p style="color: #555; line-height: 1.7; margin-bottom: 20px;">
-          En <strong>JSG Gold</strong> nos especializamos en diseñar e importar joyería masculina de alta gama elaborada en <strong>Oro Laminado de 18 Kilates</strong>. Cada pieza cuenta con 3 capas compactadas de oro genuino sobre una base técnica ultra-resistente, logrando el peso, brillo y durabilidad exacta del oro macizo.
-        </p>
-        <p style="color: #555; line-height: 1.7; margin-bottom: 30px;">
-          Olvídate de joyas que pierden su color. Nuestras piezas toleran el uso diario en gimnasio, mar, piscinas y contacto con lociones.
+        
+        <p style="color: #4A505C; line-height: 1.8; margin-bottom: 20px; font-size: 1.02rem;">
+          En <strong style="color: var(--dark-primary);">JSG GOLD</strong> nos especializamos en diseñar e importar joyería masculina de alta gama elaborada en <strong style="color: var(--gold-dark);">Oro Laminado de 18 Kilates</strong>. Cada pieza cuenta con 3 capas térmicas compactadas de oro genuino sobre una base técnica ultra-resistente, logrando la densidad, el tono y la durabilidad idéntica al oro macizo comercial.
         </p>
 
-        <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number }}&text=Hola%20JSG%20Gold,%20deseo%20más%20información%20sobre%20la%20garantía%20del%20oro%20laminado." target="_blank" class="btn btn-primary">
-          Consultar por WhatsApp
-        </a>
+        <p style="color: #4A505C; line-height: 1.8; margin-bottom: 35px; font-size: 1.02rem;">
+          Olvídate de joyas que pierden su color o manchan tu piel. Nuestras piezas están diseñadas para tolerar el uso diario en gimnasio, mar, piscina y contacto con perfumes.
+        </p>
+
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number }}&text=Hola%20JSG%20Gold,%20deseo%20más%20información%20sobre%20la%20garantía%20del%20oro%20laminado." target="_blank" class="btn btn-gold shine-hover" style="padding: 14px 28px; font-weight: 800;">
+            Asesoría Directa por WhatsApp
+          </a>
+          <a href="/collections/all" class="btn btn-dark" style="padding: 14px 28px; font-weight: 700;">
+            Explorar Catálogo
+          </a>
+        </div>
       </div>
 
-      <!-- Comparison Table Card -->
-      <div style="background: #0a0a0a; color: #fff; border-radius: 12px; padding: 35px 30px; border: 1px solid var(--color-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-        <h3 style="font-family: var(--font-heading); color: var(--color-gold); font-size: 1.3rem; margin-bottom: 25px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">
-          ¿Por qué elegir Oro Laminado 18K?
+      <!-- Comparison Card -->
+      <div style="background: radial-gradient(circle at top left, #1a1d24, #0a0b0d); color: #fff; border-radius: 16px; padding: 40px 32px; border: 1px solid var(--gold-primary); box-shadow: 0 20px 40px rgba(0,0,0,0.25); position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(212,175,55,0.15); border-radius: 50%; filter: blur(30px); pointer-events: none;"></div>
+
+        <h3 style="font-family: var(--font-display); color: var(--gold-light); font-size: 1.4rem; margin-bottom: 25px; text-align: center; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">
+          ¿Por qué elegir JSG GOLD 18K?
         </h3>
 
-        <div style="display: flex; flex-direction: column; gap: 15px; font-size: 0.9rem;">
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 10px;">
-            <span style="color: #aaa;">Característica</span>
-            <span style="color: var(--color-gold); font-weight: 700;">JSG Gold 18K</span>
+        <div style="display: flex; flex-direction: column; gap: 18px; font-size: 0.92rem;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">
+            <span style="color: #999;">Característica</span>
+            <span style="color: var(--gold-light); font-weight: 800;">JSG GOLD 18K</span>
           </div>
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 10px;">
-            <span style="color: #ccc;">Resistencia al Agua / Sudor</span>
-            <span style="color: #4CAF50; font-weight: 600;">100% Resistente</span>
+
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">
+            <span style="color: #ddd;">Resistencia al Agua / Sudor</span>
+            <span style="color: #10B981; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+              <span>✓ 100% Garantizado</span>
+            </span>
           </div>
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 10px;">
-            <span style="color: #ccc;">Apariencia & Tono</span>
-            <span style="color: #fff; font-weight: 600;">Idéntico al Oro Macizo</span>
+
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">
+            <span style="color: #ddd;">Apariencia & Tono</span>
+            <span style="color: #ffffff; font-weight: 700;">Idéntico al Oro Macizo</span>
           </div>
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 10px;">
-            <span style="color: #ccc;">Garantía Directa</span>
-            <span style="color: var(--color-gold); font-weight: 700;">1 Año Escrito</span>
+
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">
+            <span style="color: #ddd;">Garantía Directa</span>
+            <span style="color: var(--gold-light); font-weight: 800;">1 Año por Escrito</span>
           </div>
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 10px;">
-            <span style="color: #ccc;">Método de Pago</span>
-            <span style="color: #4CAF50; font-weight: 700;">Contra Entrega</span>
+
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">
+            <span style="color: #ddd;">Método de Pago</span>
+            <span style="color: #10B981; font-weight: 700;">Pago Contra Entrega</span>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; padding-top: 5px;">
+            <span style="color: #ddd;">Precio vs Oro Puro</span>
+            <span style="color: var(--gold-light); font-weight: 800;">Ahorro del 90%</span>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
