@@ -48,7 +48,7 @@
       </button>
 
       <!-- Account -->
-      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header-icon-btn" aria-label="{% if customer %}Mi cuenta{% else %}Iniciar sesión{% endif %}" style="color: #ffffff;">
+      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header-icon-btn account-icon-btn" aria-label="{% if customer %}Mi cuenta{% else %}Iniciar sesión{% endif %}" style="color: #ffffff; background: transparent; border: 1px solid var(--gold-primary); border-radius: 50%; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.2s ease;">
         {%- render 'icon-user' -%}
       </a>
 

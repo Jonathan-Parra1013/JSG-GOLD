@@ -4,8 +4,10 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "show_announcement": true,
-          "announcement_text": "🔥 ENVIOS GRATIS Y PAGO CONTRA ENTREGA EN TODA COLOMBIA | GARANTÍA 1 AÑO EN ORO LAMINADO 18K"
+          "show_bar": true,
+          "text_1": "ENVÍO GRATIS POR COMPRAS SUPERIORES A $150.000 COP",
+          "text_2": "PAGO CONTRA ENTREGA — CONFIRMA POR WHATSAPP",
+          "text_3": ""
         }
       },
       "header": {

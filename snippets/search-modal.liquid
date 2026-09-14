@@ -1,0 +1,55 @@
+<!-- Search Modal Panel - JSG GOLD Luxury Search -->
+<div id="search-modal-backdrop" class="search-modal-backdrop" aria-hidden="true">
+  <div id="search-modal"
+       class="search-modal"
+       role="dialog"
+       aria-modal="true"
+       aria-label="Buscar productos de joyería en Oro 18K"
+       tabindex="-1">
+
+    <!-- Modal Header -->
+    <div class="search-modal__header">
+      <div class="search-modal__title">
+        {%- render 'icon-search', size: 22 -%}
+        <span>Buscar en JSG GOLD 18K</span>
+      </div>
+      <button class="search-modal__close-btn" aria-label="Cerrar búsqueda" data-search-close type="button">
+        {%- render 'icon-x', size: 20 -%}
+      </button>
+    </div>
+
+    <!-- Search Form -->
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-modal__form" id="search-modal-form">
+      <div class="search-modal__input-wrapper">
+        <span class="search-input-icon">
+          {%- render 'icon-search', size: 20 -%}
+        </span>
+        <input type="search"
+               name="q"
+               id="SearchModalInput"
+               class="search-modal__input"
+               placeholder="¿Qué joya estás buscando? (ej. Cadena Cubana, Pulsera, Cristo)..."
+               autocomplete="off"
+               autocorrect="off"
+               autocapitalize="off"
+               spellcheck="false">
+        <button type="submit" class="search-modal__submit-btn" aria-label="Buscar">
+          BUSCAR
+        </button>
+      </div>
+
+      <!-- Quick Popular Search Tags -->
+      <div class="search-modal__quick-tags">
+        <span class="quick-tags-label">Búsquedas Frecuentes:</span>
+        <div class="quick-tags-list">
+          <button type="button" class="quick-tag-btn" data-search-term="Cadena Cubana">🔥 Cadenas Cubanas</button>
+          <button type="button" class="quick-tag-btn" data-search-term="Pulsera">✨ Pulseras 18K</button>
+          <button type="button" class="quick-tag-btn" data-search-term="Cristo">✝️ Dijes & Cristos</button>
+          <button type="button" class="quick-tag-btn" data-search-term="Anillo">👑 Anillos Macizos</button>
+          <button type="button" class="quick-tag-btn" data-search-term="Combo">💎 Combos Oferta</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

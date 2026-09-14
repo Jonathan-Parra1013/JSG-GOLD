@@ -169,12 +169,60 @@ function initFadeInAnimations() {
 // Search Toggle Handler
 // ─────────────────────────────────────────
 function initSearchToggle() {
+  const backdrop = document.getElementById('search-modal-backdrop');
+  const input = document.getElementById('SearchModalInput');
+  const closeBtns = document.querySelectorAll('[data-search-close]');
+  const form = document.getElementById('search-modal-form');
+
+  if (!backdrop) return;
+
+  function openSearch() {
+    backdrop.classList.add('active');
+    backdrop.setAttribute('aria-hidden', 'false');
+    if (input) {
+      setTimeout(() => input.focus(), 150);
+    }
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSearch() {
+    backdrop.classList.remove('active');
+    backdrop.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
   document.querySelectorAll('[data-search-toggle]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      const query = prompt('¿Qué joya en Oro Laminado 18K estás buscando? (ej. Cadena Cubana, Pulsera, Cristo)');
-      if (query && query.trim() !== '') {
-        window.location.href = `/search?q=${encodeURIComponent(query.trim())}`;
+      openSearch();
+    });
+  });
+
+  closeBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeSearch();
+    });
+  });
+
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) {
+      closeSearch();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && backdrop.classList.contains('active')) {
+      closeSearch();
+    }
+  });
+
+  document.querySelectorAll('.quick-tag-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const term = btn.getAttribute('data-search-term');
+      if (term) {
+        if (input) input.value = term;
+        if (form) form.submit();
       }
     });
   });

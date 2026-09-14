@@ -277,7 +277,7 @@ class JSGCart {
     const bar = document.getElementById('free-shipping-bar');
     if (!bar) return;
 
-    const threshold = parseInt(bar.getAttribute('data-threshold') || 250000, 10);
+    const threshold = parseInt(bar.getAttribute('data-threshold') || 150000, 10);
     const thresholdCents = threshold * 100; // Shopify prices are in cents
 
     const fill = document.getElementById('shipping-progress-fill');

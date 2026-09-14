@@ -87,7 +87,7 @@
           "type": "number",
           "id": "free_shipping_threshold",
           "label": "Monto mínimo para envío gratis (en COP sin puntos)",
-          "default": 250000,
+          "default": 150000,
           "info": "Ponlo en 0 para desactivar la barra de envío gratis"
         },
         {

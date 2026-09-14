@@ -1,19 +1,26 @@
-{% if section.settings.show_bar %}
+{% assign show_bar = section.settings.show_bar %}
+{% if show_bar == nil %}
+  {% assign show_bar = section.settings.show_announcement | default: true %}
+{% endif %}
+
+{% if show_bar %}
 <div class="announcement-bar" role="banner">
   <div class="announcement-bar__container">
     <div class="announcement-bar__item">
       {%- render 'icon-shield' -%}
-      <span>{{ section.settings.text_1 }}</span>
+      <span>{{ section.settings.text_1 | default: section.settings.announcement_text | default: "ENVÍO GRATIS POR COMPRAS SUPERIORES A $150.000 COP" }}</span>
     </div>
     <div class="announcement-bar__ticker hide-mobile">
       <div class="announcement-bar__item">
         {%- render 'icon-check' -%}
-        <span>{{ section.settings.text_2 }}</span>
+        <span>{{ section.settings.text_2 | default: "PAGO CONTRA ENTREGA — CONFIRMA POR WHATSAPP" }}</span>
       </div>
+      {%- if section.settings.text_3 != blank -%}
       <div class="announcement-bar__item">
         {%- render 'icon-star' -%}
         <span>{{ section.settings.text_3 }}</span>
       </div>
+      {%- endif -%}
     </div>
   </div>
 </div>
@@ -33,7 +40,7 @@
       "type": "text",
       "id": "text_1",
       "label": "Mensaje 1 (izquierda)",
-      "default": "ENVÍO GRATIS POR COMPRAS SUPERIORES A $250.000 COP"
+      "default": "ENVÍO GRATIS POR COMPRAS SUPERIORES A $150.000 COP"
     },
     {
       "type": "text",
@@ -45,13 +52,12 @@
       "type": "text",
       "id": "text_3",
       "label": "Mensaje 3 (derecha)",
-      "default": "GARANTÍA CERTIFICADA 1 AÑO EN ORO LAMINADO 18K"
+      "default": ""
     }
   ],
   "presets": [
     {
-      "name": "Barra de Anuncios",
-      "category": "Encabezado"
+      "name": "Barra de Anuncios"
     }
   ]
 }
