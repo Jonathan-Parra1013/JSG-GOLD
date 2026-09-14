@@ -1,0 +1,39 @@
+{%- comment -%}
+  Breadcrumbs & Back to Home Button Snippet for JSG GOLD
+{%- endcomment -%}
+
+{% unless template == 'index' %}
+  <nav class="breadcrumbs-nav" aria-label="Migas de pan" style="padding: 15px 0; margin-bottom: 25px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+      
+      <!-- Back to Home / Initial Panel Button -->
+      <a href="{{ routes.root_url }}" class="btn btn-outline btn-sm hover-lift" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 700; border-color: var(--gold-primary); color: var(--dark-primary); background: #ffffff; padding: 8px 16px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Volver al Inicio</span>
+      </a>
+
+      <!-- Breadcrumbs Path -->
+      <div style="font-size: 0.85rem; color: #777; font-weight: 500; display: flex; align-items: center; gap: 6px;">
+        <a href="{{ routes.root_url }}" style="color: var(--dark-primary); text-decoration: none; font-weight: 600;">Inicio</a>
+        <span style="color: var(--gold-dark);">&rsaquo;</span>
+        
+        {% if template contains 'collection' %}
+          <span style="color: var(--gold-dark); font-weight: 700;">{{ collection.title | default: 'Catálogo' }}</span>
+        {% elsif template contains 'product' %}
+          {% if collection.url %}
+            <a href="{{ collection.url }}" style="color: var(--dark-primary); text-decoration: none;">{{ collection.title }}</a>
+            <span style="color: var(--gold-dark);">&rsaquo;</span>
+          {% endif %}
+          <span style="color: var(--gold-dark); font-weight: 700;">{{ product.title }}</span>
+        {% elsif template contains 'cart' %}
+          <span style="color: var(--gold-dark); font-weight: 700;">Tu Carrito</span>
+        {% elsif template contains 'customer' %}
+          <span style="color: var(--gold-dark); font-weight: 700;">Mi Cuenta</span>
+        {% else %}
+          <span style="color: var(--gold-dark); font-weight: 700;">{{ page_title }}</span>
+        {% endif %}
+      </div>
+
+    </div>
+  </nav>
+{% endunless %}

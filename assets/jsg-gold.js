@@ -166,6 +166,40 @@ function initFadeInAnimations() {
 }
 
 // ─────────────────────────────────────────
+// Search Toggle Handler
+// ─────────────────────────────────────────
+function initSearchToggle() {
+  document.querySelectorAll('[data-search-toggle]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const query = prompt('¿Qué joya en Oro Laminado 18K estás buscando? (ej. Cadena Cubana, Pulsera, Cristo)');
+      if (query && query.trim() !== '') {
+        window.location.href = `/search?q=${encodeURIComponent(query.trim())}`;
+      }
+    });
+  });
+}
+
+// ─────────────────────────────────────────
+// Newsletter Subscription Toast Handler
+// ─────────────────────────────────────────
+function initNewsletter() {
+  document.querySelectorAll('form[action*="contact"], button:contains("SUSCRIBIRSE"), input[type="email"]').forEach(input => {
+    const btn = input.tagName === 'BUTTON' ? input : input.nextElementSibling;
+    if (btn && btn.tagName === 'BUTTON') {
+      btn.addEventListener('click', (e) => {
+        const emailInput = btn.previousElementSibling;
+        if (emailInput && emailInput.value && emailInput.value.includes('@')) {
+          e.preventDefault();
+          window.JSGUtils.showToast('¡Gracias por suscribirte al Club VIP JSG GOLD! Te notificaremos de nuevos lanzamientos 18K.', 'success');
+          emailInput.value = '';
+        }
+      });
+    }
+  });
+}
+
+// ─────────────────────────────────────────
 // DOM Ready
 // ─────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -174,6 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initAnnouncementBar();
   initFadeInAnimations();
+  initSearchToggle();
+  initNewsletter();
 
   console.log('%c💎 JSG GOLD Theme Loaded', 'color: #D4AF37; font-weight: bold; font-size: 14px;');
 });

@@ -1,83 +1,78 @@
-<header class="site-header" id="site-header" data-header>
-  <div class="header-container container">
+{%- comment -%}
+  Header Section for JSG GOLD (Luxury Centered Navigation Layout)
+{%- endcomment -%}
 
-    <!-- Mobile Hamburger (optional) -->
-    <button class="header__menu-toggle hide-desktop" aria-label="Abrir menú" data-menu-toggle>
-      {%- render 'icon-menu' -%}
-    </button>
+<header class="site-header" id="site-header" data-header style="background: #060709; border-bottom: 1px solid rgba(212, 175, 55, 0.25); position: sticky; top: 0; z-index: 100; transition: background 0.3s ease;">
+  <div class="header-container container" style="display: flex; align-items: center; justify-content: space-between; height: 80px; padding: 0 20px;">
 
-    <!-- Brand Logo -->
-    <a href="{{ routes.root_url }}" class="logo-brand" aria-label="{{ shop.name }}">
-      {%- if settings.logo != blank -%}
-        {%- assign logo_width = settings.logo_width | default: 140 -%}
-        {{ settings.logo | img_tag: shop.name, loading: 'eager', widths: '140,280', width: logo_width, height: 'auto', class: 'logo-img' }}
-      {%- else -%}
-        <div class="logo-emblem" aria-hidden="true">
-          <img src="{{ 'jsg-gold-logo.jpg' | asset_url }}" alt="JSG GOLD 18K" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-        </div>
-        <div class="logo-text-group">
-          <span class="logo-title">JSG GOLD</span>
-          <span class="logo-subtitle">ORO LAMINADO 18K &bull; LUXURY MEN</span>
-        </div>
-      {%- endif -%}
+    <!-- Left Brand Logo -->
+    <a href="{{ routes.root_url }}" class="logo-brand" aria-label="{{ shop.name }}" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <span style="color: var(--gold-primary); font-size: 1.2rem; filter: drop-shadow(0 0 5px rgba(212,175,55,0.5));">❖</span>
+      <div style="display: flex; flex-direction: column;">
+        <span style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; letter-spacing: 3px; color: #ffffff; line-height: 1;">
+          JSG GOLD
+        </span>
+      </div>
     </a>
 
-    <!-- Desktop Navigation -->
+    <!-- Center Navigation Links -->
     <nav class="header__nav hide-mobile" aria-label="Navegación principal">
-      <ul class="nav-links" role="list">
+      <ul style="display: flex; align-items: center; gap: 40px; list-style: none; margin: 0; padding: 0;">
         <li>
-          <a href="{{ routes.root_url }}"
-             class="nav-link {% if request.page_type == 'index' %}active{% endif %}">
-            Inicio
+          <a href="{{ routes.root_url }}" style="font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ffffff; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#ffffff'">
+            INICIO
           </a>
         </li>
-        {%- for link in linklists['main-menu'].links -%}
-          <li>
-            <a href="{{ link.url }}"
-               class="nav-link {% if link.active %}active{% endif %}"
-               {% if link.current %}aria-current="page"{% endif %}>
-              {{ link.title }}
-            </a>
-          </li>
-        {%- endfor -%}
+        <li>
+          <a href="/collections/all" style="font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D0D5DD; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#D0D5DD'">
+            CATÁLOGO
+          </a>
+        </li>
+        <li>
+          <a href="{{ routes.root_url }}#about-jsg" style="font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D0D5DD; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='#D4AF37'" onmouseout="this.style.color='#D0D5DD'">
+            NOSOTROS
+          </a>
+        </li>
       </ul>
     </nav>
 
-    <!-- Header Actions -->
-    <div class="header-actions">
-      <!-- Search -->
-      <button class="header-icon-btn" aria-label="Buscar productos" data-search-toggle>
-        {%- render 'icon-search' -%}
-      </button>
-
-      <!-- Account -->
-      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-         class="header-icon-btn"
-         aria-label="{% if customer %}Mi cuenta{% else %}Iniciar sesión{% endif %}">
-        {%- render 'icon-user' -%}
-      </a>
-
+    <!-- Right Header Actions -->
+    <div class="header-actions" style="display: flex; align-items: center; gap: 18px;">
+      
       <!-- Cart Drawer Trigger -->
-      <button class="header-icon-btn cart-trigger" aria-label="Ver carrito" data-cart-trigger aria-expanded="false" aria-controls="cart-drawer">
+      <button class="header-icon-btn cart-trigger" aria-label="Ver carrito" data-cart-trigger aria-expanded="false" aria-controls="cart-drawer" style="color: #ffffff; cursor: pointer; background: none; border: none; position: relative;">
         {%- render 'icon-cart' -%}
-        <span class="cart-badge {% if cart.item_count == 0 %}hidden{% endif %}"
-              id="cart-count"
-              aria-label="{{ cart.item_count }} artículos en el carrito">
+        <span class="cart-badge {% if cart.item_count == 0 %}hidden{% endif %}" id="cart-count" style="position: absolute; top: -5px; right: -8px; background: var(--gold-primary); color: #000; font-weight: 800; font-size: 0.7rem; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center;">
           {{ cart.item_count }}
         </span>
       </button>
+
+      <!-- Account -->
+      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header-icon-btn" aria-label="{% if customer %}Mi cuenta{% else %}Iniciar sesión{% endif %}" style="color: #ffffff;">
+        {%- render 'icon-user' -%}
+      </a>
+
+      <!-- Search -->
+      <button class="header-icon-btn" aria-label="Buscar productos" data-search-toggle style="color: #ffffff; cursor: pointer; background: none; border: none;">
+        {%- render 'icon-search' -%}
+      </button>
+
+      <!-- Mobile Hamburger -->
+      <button class="header__menu-toggle hide-desktop" aria-label="Abrir menú" data-menu-toggle style="color: #ffffff;">
+        {%- render 'icon-menu' -%}
+      </button>
     </div>
+
   </div>
 
-  <!-- Mobile Menu Drawer (hidden by default) -->
-  <div class="mobile-menu hide-desktop" id="mobile-menu" aria-hidden="true">
+  <!-- Mobile Menu Drawer -->
+  <div class="mobile-menu hide-desktop" id="mobile-menu" aria-hidden="true" style="background: #0A0B0D; border-top: 1px solid rgba(212,175,55,0.2); padding: 20px;">
     <nav aria-label="Menú móvil">
-      <ul role="list">
-        <li><a href="{{ routes.root_url }}">Inicio</a></li>
-        {%- for link in linklists['main-menu'].links -%}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-        {%- endfor -%}
-        <li><a href="{{ routes.account_url }}">Mi Cuenta</a></li>
+      <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 15px;">
+        <li><a href="{{ routes.root_url }}" style="color: #fff; font-family: var(--font-display); text-transform: uppercase; font-weight: 700;">INICIO</a></li>
+        <li><a href="/collections/all" style="color: #fff; font-family: var(--font-display); text-transform: uppercase; font-weight: 700;">CATÁLOGO</a></li>
+        <li><a href="#about-jsg" style="color: #fff; font-family: var(--font-display); text-transform: uppercase; font-weight: 700;">NOSOTROS</a></li>
+        <li><a href="{{ routes.account_url }}" style="color: var(--gold-light); font-family: var(--font-display); text-transform: uppercase; font-weight: 700;">MI CUENTA</a></li>
       </ul>
     </nav>
   </div>
@@ -85,10 +80,10 @@
 
 {% schema %}
 {
-  "name": "Encabezado",
+  "name": "Encabezado Luxury",
   "settings": [],
   "presets": [
-    { "name": "Encabezado", "category": "Encabezado" }
+    { "name": "Encabezado Luxury", "category": "Encabezado" }
   ]
 }
 {% endschema %}

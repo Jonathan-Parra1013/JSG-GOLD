@@ -34,14 +34,15 @@
   <!-- Skip to content (accessibility) -->
   <a class="visually-hidden" href="#main-content">Ir al contenido principal</a>
 
-  {%- sections 'announcement-bar' -%}
-  {%- sections 'header' -%}
+  {% section 'announcement-bar' %}
+  {% section 'header' %}
 
   <main id="main-content" role="main" tabindex="-1">
+    {%- render 'breadcrumbs' -%}
     {{ content_for_layout }}
   </main>
 
-  {%- sections 'footer' -%}
+  {% section 'footer' %}
 
   <!-- Cart Drawer (Global) -->
   {%- render 'cart-drawer' -%}
