@@ -2,6 +2,42 @@
   Categories Grid Section for JSG GOLD
 {%- endcomment -%}
 
+{%- assign cadenas_link = section.settings.cadenas_collection.url -%}
+{%- if cadenas_link == blank -%}
+  {%- if collections['cadenas'].handle != blank -%}
+    {%- assign cadenas_link = '/collections/cadenas' -%}
+  {%- else -%}
+    {%- assign cadenas_link = '/collections/all?categoria=cadenas' -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign pulseras_link = section.settings.pulseras_collection.url -%}
+{%- if pulseras_link == blank -%}
+  {%- if collections['pulseras'].handle != blank -%}
+    {%- assign pulseras_link = '/collections/pulseras' -%}
+  {%- else -%}
+    {%- assign pulseras_link = '/collections/all?categoria=pulseras' -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign dijes_link = section.settings.dijes_collection.url -%}
+{%- if dijes_link == blank -%}
+  {%- if collections['dijes'].handle != blank -%}
+    {%- assign dijes_link = '/collections/dijes' -%}
+  {%- else -%}
+    {%- assign dijes_link = '/collections/all?categoria=dijes' -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign combos_link = section.settings.combos_collection.url -%}
+{%- if combos_link == blank -%}
+  {%- if collections['combos'].handle != blank -%}
+    {%- assign combos_link = '/collections/combos' -%}
+  {%- else -%}
+    {%- assign combos_link = '/collections/all?categoria=combos' -%}
+  {%- endif -%}
+{%- endif -%}
+
 <section class="section" style="padding: 70px 0; background: #ffffff;">
   <div class="container">
     
@@ -18,7 +54,7 @@
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px;">
       
       <!-- Category 1: Cadenas -->
-      <a href="/collections/all" class="category-card" style="position: relative; height: 320px; border-radius: 12px; overflow: hidden; background: #0a0b0d; display: flex; flex-direction: column; justify-content: flex-end; padding: 25px; border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <a href="{{ cadenas_link }}" class="category-card" style="position: relative; height: 320px; border-radius: 12px; overflow: hidden; background: #0a0b0d; display: flex; flex-direction: column; justify-content: flex-end; padding: 25px; border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none;">
         <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%); z-index: 1;"></div>
         <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: radial-gradient(circle at center, rgba(212,175,55,0.15), transparent 70%); z-index: 0;"></div>
         
@@ -39,7 +75,7 @@
       </a>
 
       <!-- Category 2: Pulseras -->
-      <a href="/collections/all" class="category-card" style="position: relative; height: 320px; border-radius: 12px; overflow: hidden; background: #0a0b0d; display: flex; flex-direction: column; justify-content: flex-end; padding: 25px; border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <a href="{{ pulseras_link }}" class="category-card" style="position: relative; height: 320px; border-radius: 12px; overflow: hidden; background: #0a0b0d; display: flex; flex-direction: column; justify-content: flex-end; padding: 25px; border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none;">
         <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%); z-index: 1;"></div>
         <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: radial-gradient(circle at center, rgba(212,175,55,0.15), transparent 70%); z-index: 0;"></div>
         
@@ -60,7 +96,7 @@
       </a>
 
       <!-- Category 3: Dijes -->
-      <a href="/collections/all" class="category-card" style="position: relative; height: 320px; border-radius: 12px; overflow: hidden; background: #0a0b0d; display: flex; flex-direction: column; justify-content: flex-end; padding: 25px; border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <a href="{{ dijes_link }}" class="category-card" style="position: relative; height: 320px; border-radius: 12px; overflow: hidden; background: #0a0b0d; display: flex; flex-direction: column; justify-content: flex-end; padding: 25px; border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none;">
         <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%); z-index: 1;"></div>
         <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: radial-gradient(circle at center, rgba(212,175,55,0.15), transparent 70%); z-index: 0;"></div>
         
@@ -81,7 +117,7 @@
       </a>
 
       <!-- Category 4: Combos -->
-      <a href="/collections/all" class="category-card" style="position: relative; height: 320px; border-radius: 12px; overflow: hidden; background: #0a0b0d; display: flex; flex-direction: column; justify-content: flex-end; padding: 25px; border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <a href="{{ combos_link }}" class="category-card" style="position: relative; height: 320px; border-radius: 12px; overflow: hidden; background: #0a0b0d; display: flex; flex-direction: column; justify-content: flex-end; padding: 25px; border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.12); transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none;">
         <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%); z-index: 1;"></div>
         <div style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: radial-gradient(circle at center, rgba(212,175,55,0.15), transparent 70%); z-index: 0;"></div>
         
@@ -108,10 +144,36 @@
 
 {% schema %}
 {
-  "name": "Categories Grid",
+  "name": "Categorías de Lujo",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "cadenas_collection",
+      "label": "Colección de Cadenas",
+      "info": "Si no se selecciona, enlazará automáticamente a /collections/cadenas"
+    },
+    {
+      "type": "collection",
+      "id": "pulseras_collection",
+      "label": "Colección de Pulseras",
+      "info": "Si no se selecciona, enlazará automáticamente a /collections/pulseras"
+    },
+    {
+      "type": "collection",
+      "id": "dijes_collection",
+      "label": "Colección de Dijes & Medallas",
+      "info": "Si no se selecciona, enlazará automáticamente a /collections/dijes"
+    },
+    {
+      "type": "collection",
+      "id": "combos_collection",
+      "label": "Colección de Combos",
+      "info": "Si no se selecciona, enlazará automáticamente a /collections/combos"
+    }
+  ],
   "presets": [
     {
-      "name": "Categories Grid"
+      "name": "Categorías de Lujo"
     }
   ]
 }

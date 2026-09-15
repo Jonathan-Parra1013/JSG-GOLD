@@ -97,10 +97,8 @@ class JSGProductForm {
       if (variant.available) {
         addBtn.disabled = false;
         addBtn.innerHTML = `
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-          </svg>
-          Añadir al Carrito
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>AÑADIR AL CARRITO</span>
         `;
       } else {
         addBtn.disabled = true;
@@ -127,12 +125,32 @@ class JSGProductForm {
   // ─────────────────────────────────────────
   bindGallery() {
     const mainImg = document.getElementById('main-product-image');
+    const mainLink = document.querySelector('.detail-main-image-link');
     if (!mainImg) return;
 
     document.querySelectorAll('[data-thumb-index]').forEach(thumb => {
-      thumb.addEventListener('click', () => {
+      thumb.addEventListener('click', (e) => {
+        e.preventDefault();
         const src = thumb.getAttribute('data-media-src');
-        if (src) mainImg.src = src;
+        const zoomSrc = thumb.getAttribute('data-media-zoom-src') || src;
+        if (!src) return;
+
+        // Smooth transition effect
+        mainImg.style.opacity = '0.35';
+        mainImg.style.transition = 'opacity 0.18s ease-in-out';
+
+        setTimeout(() => {
+          // CRITICAL: Remove srcset so browser renders the new src immediately
+          mainImg.removeAttribute('srcset');
+          mainImg.src = src;
+
+          if (mainLink) {
+            mainLink.href = zoomSrc;
+            mainLink.setAttribute('data-pswp-src', zoomSrc);
+          }
+
+          mainImg.style.opacity = '1';
+        }, 120);
 
         document.querySelectorAll('[data-thumb-index]').forEach(t => t.classList.remove('active'));
         thumb.classList.add('active');

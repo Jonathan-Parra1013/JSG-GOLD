@@ -334,10 +334,15 @@ class JSGCart {
   // The ONLY payment method: Pago Contra Entrega via WhatsApp
   // ─────────────────────────────────────────
   bindWhatsAppCheckout() {
-    const btn = document.getElementById('whatsapp-checkout-btn');
-    if (!btn) return;
+    const buttons = document.querySelectorAll('#whatsapp-checkout-btn, #whatsapp-page-checkout-btn, [data-action="whatsapp-checkout"]');
+    if (!buttons || buttons.length === 0) return;
 
-    btn.addEventListener('click', async () => {
+    buttons.forEach(btn => {
+      // Avoid duplicate listener
+      if (btn.dataset.waBound) return;
+      btn.dataset.waBound = 'true';
+
+      btn.addEventListener('click', async () => {
       // Get current cart state
       let cart;
       try {
@@ -383,6 +388,7 @@ class JSGCart {
       this.closeDrawer();
 
       JSGUtils.showToast('¡Redirigiendo a WhatsApp para confirmar tu pedido!', 'success');
+      });
     });
   }
 

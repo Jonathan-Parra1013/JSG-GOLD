@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <link rel="icon" type="image/png" href="https://cdn.shopify.com/s/files/1/0998/6942/6034/files/WhatsApp_Image_2026-09-14_at_4.49.06_PM.png?v=1789424088">
+  <link rel="icon" type="image/png" href="https://cdn.shopify.com/s/files/1/0998/6942/6034/files/WhatsApp_Image_2026-09-14_at_4.49.06_PM.png?v=1789424566">
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,7 +55,7 @@
   <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
   <!-- WhatsApp Float Button -->
-  <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number | url_encode }}&text={{ settings.whatsapp_greeting | url_encode }}"
+  <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number | default: '573023661803' | url_encode }}&text={{ settings.whatsapp_greeting | default: 'Hola JSG Gold 👋 Quiero información sobre sus joyas de Oro 18K' | url_encode }}"
      target="_blank"
      rel="noopener"
      class="whatsapp-float-btn"
@@ -82,7 +82,7 @@
         cart_update_url: '{{ routes.root_url }}cart/update.js',
         predictive_search_url: '{{ routes.predictive_search_url }}'
       },
-      whatsappNumber: {{ settings.whatsapp_number | json }},
+      whatsappNumber: {{ settings.whatsapp_number | default: '573023661803' | json }},
       sections: {
         cart: '?sections=cart-drawer'
       }

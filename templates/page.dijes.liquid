@@ -1,0 +1,66 @@
+<!-- Page Template for Dijes & Medallas (JSG GOLD) -->
+<div class="category-page" style="padding: 30px 0 70px 0; background: #fafafa; min-height: 80vh;">
+  <div class="container">
+
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 35px;">
+      <span style="color: var(--gold-dark); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 8px;">
+        ✦ COLECCIÓN EXCLUSIVA ✦
+      </span>
+      <h1 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; text-transform: uppercase; color: var(--dark-primary); margin-bottom: 10px;">
+        DIJES &amp; MEDALLAS EN ORO 18K
+      </h1>
+      <p style="color: #6B7280; font-size: 0.95rem; max-width: 600px; margin: 0 auto;">
+        Dijes y medallas en Oro Laminado de 18 Kilates, perfectos para regalar o complementar tu estilo con elegancia.
+      </p>
+      <div style="width: 60px; height: 3px; background: var(--gold-primary); margin: 15px auto 0 auto; border-radius: 2px;"></div>
+    </div>
+
+    <!-- Category Nav Chips -->
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 30px;">
+      <a href="/collections/all" style="padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; border: 1px solid #D1D5DB; background: #ffffff; color: #111827; text-decoration: none;">Todos</a>
+      <a href="/collections/all?categoria=cadenas" style="padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; border: 1px solid #D1D5DB; background: #ffffff; color: #111827; text-decoration: none;">Cadenas 18K</a>
+      <a href="/collections/all?categoria=pulseras" style="padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; border: 1px solid #D1D5DB; background: #ffffff; color: #111827; text-decoration: none;">Pulseras 18K</a>
+      <a href="/collections/all?categoria=dijes" style="padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; border: 1px solid #111827; background: #111827; color: #ffffff; text-decoration: none;">Dijes &amp; Medallas</a>
+      <a href="/collections/all?categoria=combos" style="padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; border: 1px solid #D1D5DB; background: #ffffff; color: #111827; text-decoration: none;">Combos 18K</a>
+    </div>
+
+    <!-- Products List -->
+    {%- assign all_products = collections.all.products -%}
+    {%- assign found_count = 0 -%}
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px;">
+      {%- for product in all_products -%}
+        {%- assign p_title = product.title | downcase -%}
+        {%- assign p_type = product.type | downcase -%}
+        {%- if p_title contains 'dije' or p_title contains 'medalla' or p_type contains 'dije' or product.tags contains 'dijes' -%}
+          {%- assign found_count = found_count | plus: 1 -%}
+          <div>
+            {%- render 'product-card', product: product -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if found_count == 0 -%}
+      <div style="text-align: center; padding: 4rem 1rem; background: #ffffff; border-radius: 12px; border: 1px solid #E5E7EB; margin-top: 20px;">
+        <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">✨</span>
+        <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: #111827; margin-bottom: 8px;">
+          Pronto tendremos nuevos Dijes en Oro 18K
+        </h3>
+        <p style="color: #6B7280; font-size: 0.95rem; max-width: 500px; margin: 0 auto 20px auto;">
+          Estamos elaborando dijes y medallas exclusivos. Mientras tanto, puedes explorar las demás joyas o solicitar un dije personalizado por WhatsApp.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="/collections/all" class="btn btn-gold shine-hover" style="text-decoration: none; padding: 12px 24px; font-weight: 800; text-transform: uppercase;">
+            Ver Todas las Joyas
+          </a>
+          <a href="https://api.whatsapp.com/send?phone=573023661803&text=Hola%20JSG%20Gold,%20busco%20un%20dije%20o%20medalla%20en%20oro%20laminado%2018k." target="_blank" class="btn btn-whatsapp shine-hover" style="text-decoration: none; padding: 12px 24px; font-weight: 800; text-transform: uppercase;">
+            Pedir por WhatsApp
+          </a>
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>

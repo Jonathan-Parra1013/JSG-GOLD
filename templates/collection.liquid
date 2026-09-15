@@ -1,50 +1,76 @@
 {{ 'main-collection.css' | asset_url | stylesheet_tag }}
 
-<div class="collection-page">
+<div class="collection-page" style="padding: 30px 0 70px 0; background: #fafafa; min-height: 80vh;">
   <div class="container">
 
     <!-- Collection Header -->
-    <div class="collection-header">
-      <h1 class="section-title">
-        {%- if collection.title -%}
+    <div class="collection-header" style="text-align: center; margin-bottom: 35px;">
+      <span style="color: var(--gold-dark); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 8px;">
+        ✦ CATÁLOGO EXCLUSIVO JSG GOLD ✦
+      </span>
+      <h1 class="section-title" id="collection-main-title" style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; text-transform: uppercase; color: var(--dark-primary); margin-bottom: 10px;">
+        {%- if collection.title and collection.handle != 'all' -%}
           {{ collection.title }}
         {%- else -%}
-          Catálogo de Joyería en Oro 18K
+          COLECCIÓN COMPLETA EN ORO 18K
         {%- endif -%}
       </h1>
-      {%- if collection.description != blank -%}
-        <div class="collection-description section-desc">
+      <p id="collection-subtitle" style="color: #6B7280; font-size: 0.95rem; max-width: 600px; margin: 0 auto;">
+        {%- if collection.description != blank -%}
           {{ collection.description }}
-        </div>
-      {%- endif -%}
+        {%- else -%}
+          Joyas macizas e inalterables en Oro Laminado de 18 Kilates con garantía certificada y envíos a toda Colombia.
+        {%- endif -%}
+      </p>
+      <div style="width: 60px; height: 3px; background: var(--gold-primary); margin: 15px auto 0 auto; border-radius: 2px;"></div>
     </div>
 
     <!-- Filters & Sort Toolbar -->
-    <div class="catalog-toolbar">
-      <!-- Filter by Tag (Product type) -->
-      <div class="catalog-filters-group" role="group" aria-label="Filtrar por categoría">
-        <a href="{{ collection.url }}"
-           class="filter-chip {% unless current_tags %}active{% endunless %}">
+    <div class="catalog-toolbar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; background: #ffffff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 14px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+      
+      <!-- Category Chips Filter -->
+      <div class="catalog-filters-group" role="group" aria-label="Filtrar por categoría" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+        <a href="/collections/all"
+           class="filter-chip category-filter-btn active"
+           data-category="all"
+           style="text-decoration: none; padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #D1D5DB; background: #111827; color: #ffffff; transition: all 0.2s ease;">
           Todos
         </a>
-        {%- for tag in collection.all_tags -%}
-          {%- if tag != 'bestseller' and tag != 'new' and tag != 'nuevo' -%}
-            <a href="{{ collection.url }}/{{ tag | handle }}"
-               class="filter-chip {% if current_tags contains tag %}active{% endif %}">
-              {{ tag | capitalize }}
-            </a>
-          {%- endif -%}
-        {%- endfor -%}
+        <a href="/collections/all?categoria=cadenas"
+           class="filter-chip category-filter-btn"
+           data-category="cadenas"
+           style="text-decoration: none; padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #D1D5DB; background: #ffffff; color: #111827; transition: all 0.2s ease;">
+          Cadenas 18K
+        </a>
+        <a href="/collections/all?categoria=pulseras"
+           class="filter-chip category-filter-btn"
+           data-category="pulseras"
+           style="text-decoration: none; padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #D1D5DB; background: #ffffff; color: #111827; transition: all 0.2s ease;">
+          Pulseras 18K
+        </a>
+        <a href="/collections/all?categoria=dijes"
+           class="filter-chip category-filter-btn"
+           data-category="dijes"
+           style="text-decoration: none; padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #D1D5DB; background: #ffffff; color: #111827; transition: all 0.2s ease;">
+          Dijes & Medallas
+        </a>
+        <a href="/collections/all?categoria=combos"
+           class="filter-chip category-filter-btn"
+           data-category="combos"
+           style="text-decoration: none; padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #D1D5DB; background: #ffffff; color: #111827; transition: all 0.2s ease;">
+          Combos 18K
+        </a>
       </div>
 
       <!-- Sort select (Shopify native) -->
-      <div class="catalog-sort-wrap">
-        <label for="sort-by" class="visually-hidden">Ordenar por</label>
+      <div class="catalog-sort-wrap" style="display: flex; align-items: center; gap: 8px;">
+        <label for="sort-by" style="font-size: 0.82rem; font-weight: 700; color: #4B5563; text-transform: uppercase;">Ordenar:</label>
         <select id="sort-by"
                 name="sort_by"
                 class="filter-select"
                 data-sort-by
-                aria-label="Ordenar productos">
+                aria-label="Ordenar productos"
+                style="padding: 7px 12px; border-radius: 6px; border: 1px solid #D1D5DB; background: #ffffff; font-size: 0.85rem; font-weight: 600; color: #111827; outline: none;">
           {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
           {%- for option in collection.sort_options -%}
             <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>
@@ -56,26 +82,50 @@
     </div>
 
     <!-- Products Grid -->
-    {%- paginate collection.products by 12 -%}
+    {%- paginate collection.products by 48 -%}
       {%- if collection.products.size > 0 -%}
-        <div class="products-grid" id="products-grid">
+        <div class="products-grid" id="products-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px;">
           {%- for product in collection.products -%}
-            {%- render 'product-card', product: product, collection: collection -%}
+            <div class="product-item-wrap" data-product-title="{{ product.title | downcase }}" data-product-type="{{ product.type | downcase }}" data-product-tags="{{ product.tags | join: ' ' | downcase }}">
+              {%- render 'product-card', product: product, collection: collection -%}
+            </div>
           {%- endfor -%}
+        </div>
+
+        <!-- Dynamic Category Empty State (hidden by default) -->
+        <div id="dynamic-category-empty" style="display: none; text-align: center; padding: 4rem 1rem; background: #ffffff; border-radius: 12px; border: 1px solid #E5E7EB; margin-top: 20px;">
+          <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">💎</span>
+          <h3 id="empty-category-name" style="font-family: var(--font-display); font-size: 1.5rem; color: #111827; margin-bottom: 8px;">
+            Pronto tendremos nuevas joyas en esta categoría
+          </h3>
+          <p style="color: #6B7280; font-size: 0.95rem; max-width: 500px; margin: 0 auto 20px auto;">
+            Estamos elaborando piezas exclusivas de Oro Laminado 18K. Mientras tanto, puedes explorar las demás joyas o pedir un diseño personalizado por WhatsApp.
+          </p>
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a href="/collections/all" class="btn btn-gold shine-hover" style="text-decoration: none; padding: 12px 24px; font-weight: 800; text-transform: uppercase;">
+              Ver Todas las Joyas
+            </a>
+            <a href="https://api.whatsapp.com/send?phone=573023661803&text=Hola%20JSG%20Gold,%20busco%20una%20joya%20personalizada." target="_blank" class="btn btn-whatsapp shine-hover" style="text-decoration: none; padding: 12px 24px; font-weight: 800; text-transform: uppercase;">
+              Consultar por WhatsApp
+            </a>
+          </div>
         </div>
 
         <!-- Pagination -->
         {%- if paginate.pages > 1 -%}
-          <div class="pagination-wrap">
+          <div class="pagination-wrap" style="margin-top: 40px; text-align: center;">
             {{ paginate | default_pagination | replace: '&laquo; Previous', '← Anterior' | replace: 'Next &raquo;', 'Siguiente →' }}
           </div>
         {%- endif -%}
 
       {%- else -%}
-        <div class="collection-empty" style="text-align:center; padding: 4rem 1rem;">
-          <h3 style="font-family: var(--font-display);">Pronto habrá joyas en esta categoría</h3>
-          <p>Estamos preparando nuevas piezas exclusivas para ti.</p>
-          <a href="{{ routes.collections_url }}/all" class="btn btn-gold shine-hover" style="margin-top:1rem; display:inline-flex;">
+        <div class="collection-empty" style="text-align:center; padding: 4rem 1rem; background: #ffffff; border-radius: 12px; border: 1px solid #E5E7EB;">
+          <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">💎</span>
+          <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: #111827; margin-bottom: 8px;">
+            Pronto habrá joyas en esta categoría
+          </h3>
+          <p style="color: #6B7280; font-size: 0.95rem;">Estamos preparando nuevas piezas exclusivas en Oro Laminado 18K.</p>
+          <a href="{{ routes.collections_url }}/all" class="btn btn-gold shine-hover" style="margin-top: 1rem; display: inline-flex; text-decoration: none; padding: 12px 24px; font-weight: 800; text-transform: uppercase;">
             Ver Todo el Catálogo
           </a>
         </div>
@@ -84,3 +134,102 @@
 
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Read query parameter '?categoria='
+    const params = new URLSearchParams(window.location.search);
+    const cat = (params.get('categoria') || '').toLowerCase().trim();
+
+    const titleEl = document.getElementById('collection-main-title');
+    const subtitleEl = document.getElementById('collection-subtitle');
+    const chips = document.querySelectorAll('.category-filter-btn');
+    const items = document.querySelectorAll('.product-item-wrap');
+    const emptyBox = document.getElementById('dynamic-category-empty');
+    const emptyTitle = document.getElementById('empty-category-name');
+    const grid = document.getElementById('products-grid');
+
+    const catData = {
+      'cadenas': {
+        title: 'CADENAS EN ORO LAMINADO 18K',
+        subtitle: 'Tejido Cubano, Chino, Escalera y Cartier en grosores de 3mm a 12mm.'
+      },
+      'pulseras': {
+        title: 'PULSERAS & BRAZALETES EN ORO 18K',
+        subtitle: 'Brazaletes macizos con broches de seguridad reforzados y brillo inalterable.'
+      },
+      'dijes': {
+        title: 'DIJES & MEDALLAS EN ORO 18K',
+        subtitle: 'Cristos, Cruces, Placas y símbolos tallados en oro laminado de 18 Kilates.'
+      },
+      'combos': {
+        title: 'COMBOS ESPECIALES EN ORO 18K',
+        subtitle: 'Kits completos de Cadena + Dije + Pulsera a precio exclusivo de oferta.'
+      }
+    };
+
+    function applyFilter(targetCat) {
+      // Update chip styles
+      chips.forEach(chip => {
+        const isMatch = chip.getAttribute('data-category') === targetCat;
+        if (isMatch) {
+          chip.style.background = '#111827';
+          chip.style.color = '#ffffff';
+          chip.style.borderColor = '#111827';
+        } else {
+          chip.style.background = '#ffffff';
+          chip.style.color = '#111827';
+          chip.style.borderColor = '#D1D5DB';
+        }
+      });
+
+      if (!targetCat || targetCat === 'all') {
+        // Show all
+        items.forEach(item => item.style.display = '');
+        if (emptyBox) emptyBox.style.display = 'none';
+        if (titleEl && !window.location.pathname.includes('/collections/')) {
+          titleEl.textContent = 'COLECCIÓN COMPLETA EN ORO 18K';
+        }
+        return;
+      }
+
+      // Update Titles if defined
+      if (catData[targetCat]) {
+        if (titleEl) titleEl.textContent = catData[targetCat].title;
+        if (subtitleEl) subtitleEl.textContent = catData[targetCat].subtitle;
+      }
+
+      // Filter product items
+      let visibleCount = 0;
+      items.forEach(item => {
+        const title = item.getAttribute('data-product-title') || '';
+        const type = item.getAttribute('data-product-type') || '';
+        const tags = item.getAttribute('data-product-tags') || '';
+
+        // Keyword root
+        const root = targetCat.slice(0, 4); // 'pulser' -> 'puls', 'caden' -> 'cade', 'dije' -> 'dije', 'comb' -> 'comb'
+        const match = title.includes(root) || type.includes(root) || tags.includes(root);
+
+        if (match) {
+          item.style.display = '';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      if (visibleCount === 0 && emptyBox) {
+        emptyBox.style.display = 'block';
+        if (emptyTitle && catData[targetCat]) {
+          emptyTitle.textContent = `Pronto tendremos nuevas joyas en ${catData[targetCat].title}`;
+        }
+      } else if (emptyBox) {
+        emptyBox.style.display = 'none';
+      }
+    }
+
+    if (cat && catData[cat]) {
+      applyFilter(cat);
+    }
+  });
+</script>

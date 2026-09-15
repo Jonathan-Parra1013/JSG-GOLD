@@ -19,11 +19,12 @@
         "settings": {}
       }
     },
-    "content_for_index": []
+    "content_for_index": [],
+    "whatsapp_number": "573023661803"
   },
   "presets": {
     "Default": {
-      "whatsapp_number": "573000000000",
+      "whatsapp_number": "573023661803",
       "free_shipping_threshold": 150000
     }
   }

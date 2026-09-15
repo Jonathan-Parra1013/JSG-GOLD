@@ -1,67 +1,117 @@
-<div class="login-page container" style="max-width: 550px; padding: 5rem 1.5rem;">
-  <div class="section-header" style="margin-bottom: 2rem;">
-    <span class="section-subtitle">Únete al Club VIP</span>
-    <h1 class="section-title" style="font-size: 2rem;">Crear Cuenta</h1>
-    <p class="section-desc">Regístrate para rastrear tus pedidos y acceder a beneficios exclusivos de la membresía JSG Gold.</p>
-  </div>
+<!-- JSG GOLD - Luxury Customer Register Template -->
+<div class="login-page container" style="max-width: 560px; padding: 4.5rem 1.5rem; margin: 0 auto;">
+  
+  <div style="background: radial-gradient(circle at 50% 0%, #171A23 0%, #0A0B0E 100%); border: 1px solid rgba(212,175,55,0.35); border-radius: 16px; padding: 2.5rem 2rem; box-shadow: 0 20px 45px rgba(0,0,0,0.5); position: relative; overflow: hidden;">
+    
+    <!-- Top ambient glow line -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);"></div>
 
-  <div style="background: #FFFFFF; border: 1px solid var(--dark-border); border-radius: var(--radius-md); padding: 2rem; box-shadow: var(--shadow-md);">
+    <!-- Brand Emblem -->
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+      <a href="{{ routes.root_url }}" style="display: inline-block; text-decoration: none;">
+        <img src="{{ 'jsg-logo.png' | asset_url }}" alt="JSG GOLD" width="65" height="50" style="height: 52px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(212,175,55,0.4)); margin-bottom: 8px;">
+        <span style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; letter-spacing: 2.5px; color: #ffffff; display: block; line-height: 1;">
+          JSG GOLD
+        </span>
+      </a>
+      <span style="color: var(--gold-light); font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; display: block; margin-top: 6px;">
+        ✦ CREAR CUENTA DE CLIENTE VIP ✦
+      </span>
+      <p style="color: #9CA3AF; font-size: 0.85rem; margin-top: 6px; margin-bottom: 0;">
+        Tus pedidos, guías de envío e historial de compras quedarán vinculados a tu cuenta.
+      </p>
+    </div>
+
+    <!-- Benefits Row -->
+    <div style="background: rgba(212,175,55,0.06); border: 1px solid rgba(212,175,55,0.25); border-radius: 10px; padding: 12px 14px; margin-bottom: 1.75rem;">
+      <div style="display: flex; align-items: center; gap: 8px; color: var(--gold-light); font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Base de Datos 100% Segura y Encriptada
+      </div>
+      <p style="color: #9CA3AF; font-size: 0.76rem; line-height: 1.4; margin: 0;">
+        Podrás acceder desde cualquier dispositivo para verificar el estado de tus despachos en tiempo real.
+      </p>
+    </div>
+
+    <!-- Register Form -->
     {%- form 'create_customer' -%}
-      {{ form.errors | default_errors }}
+      {%- if form.errors -%}
+        <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid #EF4444; color: #FCA5A5; padding: 12px 16px; border-radius: 8px; margin-bottom: 1.25rem; font-size: 0.85rem;">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
 
-      <div class="form-row-2">
-        <div class="form-group">
-          <label class="form-label" for="FirstName">Nombre</label>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.25rem;">
+        <div>
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #E5E7EB; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;" for="FirstName">
+            Nombre
+          </label>
           <input type="text"
                  name="customer[first_name]"
                  id="FirstName"
-                 class="form-control"
+                 style="width: 100%; background: #060709; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 13px 15px; color: #ffffff; font-size: 0.95rem; outline: none;"
                  autocomplete="given-name"
-                 autocapitalize="words">
+                 autocapitalize="words"
+                 placeholder="Tu nombre"
+                 required>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="LastName">Apellido</label>
+        <div>
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #E5E7EB; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;" for="LastName">
+            Apellido
+          </label>
           <input type="text"
                  name="customer[last_name]"
                  id="LastName"
-                 class="form-control"
+                 style="width: 100%; background: #060709; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 13px 15px; color: #ffffff; font-size: 0.95rem; outline: none;"
                  autocomplete="family-name"
-                 autocapitalize="words">
+                 autocapitalize="words"
+                 placeholder="Tu apellido"
+                 required>
         </div>
       </div>
 
-      <div class="form-group">
-        <label class="form-label" for="Email">Correo Electrónico</label>
+      <div style="margin-bottom: 1.25rem;">
+        <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #E5E7EB; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;" for="Email">
+          Correo Electrónico
+        </label>
         <input type="email"
                name="customer[email]"
                id="Email"
-               class="form-control"
+               style="width: 100%; background: #060709; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 13px 15px; color: #ffffff; font-size: 0.95rem; outline: none;"
                autocomplete="email"
                autocapitalize="off"
                autocorrect="off"
+               placeholder="ejemplo@correo.com"
                required>
       </div>
 
-      <div class="form-group">
-        <label class="form-label" for="CreatePassword">Contraseña</label>
+      <div style="margin-bottom: 1.75rem;">
+        <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #E5E7EB; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;" for="CreatePassword">
+          Contraseña
+        </label>
         <input type="password"
                name="customer[password]"
                id="CreatePassword"
-               class="form-control"
+               style="width: 100%; background: #060709; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 13px 15px; color: #ffffff; font-size: 0.95rem; outline: none;"
                autocomplete="new-password"
+               placeholder="Mínimo 6 caracteres"
                required>
       </div>
 
-      <button type="submit" class="btn btn-gold shine-hover btn-block">
-        Crear mi Cuenta VIP JSG Gold
+      <button type="submit" class="btn btn-gold shine-hover" style="width: 100%; padding: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.95rem;">
+        Registrarme en JSG GOLD
       </button>
     {%- endform -%}
 
-    <div style="text-align: center; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--dark-border);">
-      <p style="font-size: 0.9rem; color: var(--text-secondary);">¿Ya tienes cuenta?</p>
-      <a href="{{ routes.account_login_url }}" class="btn btn-dark" style="margin-top: 0.5rem; display: inline-flex;">
+    <!-- Link to Login -->
+    <div style="text-align: center; margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+      <p style="font-size: 0.88rem; color: #9CA3AF; margin-bottom: 10px;">
+        ¿Ya eres miembro y tienes cuenta?
+      </p>
+      <a href="{{ routes.account_login_url }}" class="btn btn-dark" style="display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 13px; font-size: 0.88rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--gold-border);">
         Iniciar Sesión
       </a>
     </div>
+
   </div>
 </div>

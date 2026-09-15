@@ -132,7 +132,7 @@
 
               <!-- WhatsApp Follow-up for this order -->
               {%- assign wa_msg = "Hola JSG Gold 👑 Quiero consultar el estado de mi pedido " | append: order.name -%}
-              <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number }}&text={{ wa_msg | url_encode }}"
+              <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number | default: '573023661803' }}&text={{ wa_msg | url_encode }}"
                  target="_blank"
                  rel="noopener"
                  class="btn btn-whatsapp shine-hover"

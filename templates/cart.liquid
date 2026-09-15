@@ -23,14 +23,32 @@
           </div>
 
           <p style="font-size: 0.85rem; color: #666; margin: 0; text-align: right;">
-            🚚 Envío Gratis y Pago Contra Entrega a toda Colombia.<br>Al presionar el botón se enviará tu lista de compra directamente a nuestro WhatsApp oficial.
+            🚚 Envíos seguros a toda Colombia con cobertura nacional.<br>Elige pagar en línea con <strong>Tarjeta o PSE</strong>, o pide con <strong>Pago Contra Entrega</strong> por WhatsApp.
           </p>
 
-          <button type="button" id="whatsapp-page-checkout-btn" class="btn btn-primary btn-lg" style="width: 100%; max-width: 400px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">
-            Pedir por WhatsApp (Pago Contra Entrega)
-          </button>
+          <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 420px;">
+            <!-- Botón 1: Checkout Oficial Shopify para PSE / Tarjetas -->
+            <a href="/checkout" class="btn btn-gold btn-lg shine-hover" style="width: 100%; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Pagar con Tarjeta / PSE (Checkout)
+            </a>
 
-          <a href="/collections/all" style="color: #666; font-size: 0.9rem; text-decoration: underline;">
+            <!-- Botón 2: WhatsApp Pago Contra Entrega -->
+            <button type="button" id="whatsapp-page-checkout-btn" class="btn btn-whatsapp btn-lg shine-hover" style="width: 100%; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.068-2.228-.567-1.748-.724-2.885-2.529-2.973-2.645-.088-.116-.708-.941-.708-1.792s.445-1.272.604-1.444c.159-.172.347-.216.463-.216.116 0 .232.002.333.007.106.006.248-.041.388.295.144.347.491 1.2.535 1.288.043.088.073.188.014.304-.058.116-.087.188-.173.289l-.26.307c-.087.087-.179.183-.077.359.102.176.452.746.97 1.208.667.596 1.23.78 1.403.867.174.087.275.073.377-.044.101-.116.435-.507.55-.681.116-.174.232-.145.39-.087.159.058 1.009.477 1.183.564.174.087.29.13.333.203.044.073.044.423-.1.828z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12 0 5.373 0 0 5.373 0 12c0 2.117.553 4.17 1.604 5.978L0 24l6.184-1.622A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12 0-3.203-1.243-6.219-3.48-8.551zM12 22c-1.786 0-3.538-.481-5.07-1.391l-.363-.215-3.671.963.98-3.581-.236-.371A9.96 9.96 0 012 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10z"/></svg>
+              Pedir por WhatsApp (Contra Entrega)
+            </button>
+          </div>
+
+          <!-- Payment Badges in Cart Page -->
+          <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; margin-top: 5px;">
+            <span style="background: #002B49; color: #fff; font-size: 0.72rem; font-weight: 900; padding: 4px 8px; border-radius: 4px;">PSE</span>
+            <span style="background: #1A1D24; color: #fff; font-size: 0.72rem; font-weight: 700; padding: 4px 8px; border-radius: 4px;">TARJETAS</span>
+            <span style="background: #200020; color: #FF2B6D; font-size: 0.72rem; font-weight: 800; padding: 4px 8px; border-radius: 4px;">NEQUI</span>
+            <span style="background: rgba(37, 211, 102, 0.15); color: #25D366; font-size: 0.72rem; font-weight: 800; padding: 4px 8px; border-radius: 4px;">PAGO CONTRA ENTREGA</span>
+          </div>
+
+          <a href="/collections/all" style="color: #666; font-size: 0.9rem; text-decoration: underline; margin-top: 5px;">
             Continuar comprando
           </a>
         </div>

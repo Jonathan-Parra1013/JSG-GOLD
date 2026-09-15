@@ -53,8 +53,8 @@
           "type": "text",
           "id": "whatsapp_number",
           "label": "Número de WhatsApp (con código de país, sin +)",
-          "default": "573001234567",
-          "info": "Ejemplo: 573001234567 para Colombia (+57 300 123 4567)"
+          "default": "573023661803",
+          "info": "Ejemplo: 573023661803 para Colombia (+57 302 366 1803)"
         },
         {
           "type": "text",
