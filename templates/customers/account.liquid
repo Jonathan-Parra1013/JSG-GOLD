@@ -38,12 +38,31 @@
       </a>
       <a href="{{ routes.account_addresses_url }}" class="profile-nav-btn">
         {%- render 'icon-user', size: 18 -%}
-        Mis Direcciones de Envío
+        Mis Direcciones de Envio
       </a>
       <a href="#account-benefits" class="profile-nav-btn">
         {%- render 'icon-star', size: 18 -%}
         Beneficios del Club VIP
       </a>
+
+      <!-- Order Stats Summary -->
+      {%- if customer.orders.size > 0 -%}
+        {%- assign total_spent = 0 -%}
+        {%- for o in customer.orders -%}
+          {%- assign total_spent = total_spent | plus: o.total_price -%}
+        {%- endfor -%}
+      <div class="account-stats-card">
+        <div class="account-stat">
+          <span class="account-stat-number">{{ customer.orders.size }}</span>
+          <span class="account-stat-label">Pedidos realizados</span>
+        </div>
+        <div class="account-stat-divider"></div>
+        <div class="account-stat">
+          <span class="account-stat-number">{{ total_spent | money_without_trailing_zeros }}</span>
+          <span class="account-stat-label">Total invertido</span>
+        </div>
+      </div>
+      {%- endif -%}
     </div>
 
     <!-- Main Orders Area -->
@@ -72,13 +91,25 @@
                   <div style="font-size: 1.25rem; font-weight: 800; color: var(--dark-primary);">
                     {{ order.total_price | money }}
                   </div>
+                  <!-- Fulfillment status badge -->
                   <span class="order-fulfillment-badge"
                         data-status="{{ order.fulfillment_status }}">
                     {%- case order.fulfillment_status -%}
-                      {%- when 'fulfilled' -%}✓ Entregado
-                      {%- when 'partial' -%}⚡ Entrega Parcial
-                      {%- when 'restocked' -%}↩ Devuelto
-                      {%- else -%}🚚 En Proceso
+                      {%- when 'fulfilled' -%}&#x2713; Entregado
+                      {%- when 'partial' -%}&#x26A1; Entrega Parcial
+                      {%- when 'restocked' -%}&#x21A9; Devuelto
+                      {%- else -%}&#x1F69A; En Proceso
+                    {%- endcase -%}
+                  </span>
+                  <!-- Financial / Payment status badge -->
+                  <span class="order-financial-badge" data-financial="{{ order.financial_status }}">
+                    {%- case order.financial_status -%}
+                      {%- when 'paid' -%}&#x1F7E2; Pagado
+                      {%- when 'pending' -%}&#x1F7E1; Pago Pendiente
+                      {%- when 'refunded' -%}&#x1F534; Reembolsado
+                      {%- when 'partially_refunded' -%}&#x1F7E0; Parcialmente Reembolsado
+                      {%- when 'authorized' -%}&#x1F535; Autorizado
+                      {%- else -%}&#x26AA; {{ order.financial_status | replace: '_', ' ' | capitalize }}
                     {%- endcase -%}
                   </span>
                 </div>
@@ -130,16 +161,26 @@
                 {%- endfor -%}
               </div>
 
-              <!-- WhatsApp Follow-up for this order -->
-              {%- assign wa_msg = "Hola JSG Gold 👑 Quiero consultar el estado de mi pedido " | append: order.name -%}
-              <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number | default: '573023661803' }}&text={{ wa_msg | url_encode }}"
-                 target="_blank"
-                 rel="noopener"
-                 class="btn btn-whatsapp shine-hover"
-                 style="margin-top: 1rem; width: 100%; display: flex; justify-content: center; align-items: center; gap: 0.5rem; font-size: 0.85rem; padding: 0.65rem;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12 0 5.373 0 0 5.373 0 12c0 2.117.553 4.17 1.604 5.978L0 24l6.184-1.622A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12 0-3.203-1.243-6.219-3.48-8.551z"/></svg>
-                Consultar Estado por WhatsApp
-              </a>
+              <!-- Order actions row -->
+              <div style="display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap;">
+                <!-- Ver detalle del pedido -->
+                <a href="{{ order.customer_url }}"
+                   class="btn btn-dark"
+                   style="flex: 1; display: flex; justify-content: center; align-items: center; gap: 0.5rem; font-size: 0.82rem; padding: 0.65rem; border: 1px solid var(--gold-border); min-width: 140px;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Ver Detalle
+                </a>
+                <!-- WhatsApp Follow-up for this order -->
+                {%- assign wa_msg = 'Hola JSG Gold quiero consultar el estado de mi pedido ' | append: order.name -%}
+                <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number | default: '573023661803' }}&text={{ wa_msg | url_encode }}"
+                   target="_blank"
+                   rel="noopener"
+                   class="btn btn-whatsapp shine-hover"
+                   style="flex: 1; display: flex; justify-content: center; align-items: center; gap: 0.5rem; font-size: 0.82rem; padding: 0.65rem; min-width: 140px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12 0 5.373 0 0 5.373 0 12c0 2.117.553 4.17 1.604 5.978L0 24l6.184-1.622A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12 0-3.203-1.243-6.219-3.48-8.551z"/></svg>
+                  Consultar por WhatsApp
+                </a>
+              </div>
             </div>
           {%- endfor -%}
 

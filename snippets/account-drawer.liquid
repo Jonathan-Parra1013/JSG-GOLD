@@ -1,0 +1,275 @@
+{%- comment -%}
+  Account Drawer — JSG GOLD
+  Slide-in panel from the right triggered by the account icon in the header.
+  - Guest: shows login form + register CTA
+  - Logged in: shows greeting, quick stats, recent orders, account links
+{%- endcomment -%}
+
+<!-- Account Drawer Overlay -->
+<div class="acct-drawer-overlay" id="acct-drawer-overlay" aria-hidden="true"></div>
+
+<!-- Account Drawer Panel -->
+<div class="acct-drawer"
+     id="acct-drawer"
+     role="dialog"
+     aria-modal="true"
+     aria-label="Panel de cuenta"
+     aria-hidden="true">
+
+  <!-- ─── HEADER ─── -->
+  <div class="acct-drawer__head">
+    <div class="acct-drawer__head-title">
+      {% if customer %}
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Mi Cuenta
+      {% else %}
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Acceso VIP
+      {% endif %}
+    </div>
+    <button class="acct-drawer__close" id="acct-drawer-close" aria-label="Cerrar panel de cuenta">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- ─── GOLD LINE ─── -->
+  <div class="acct-drawer__gold-line"></div>
+
+  <!-- ─── SCROLL BODY ─── -->
+  <div class="acct-drawer__body">
+
+    {% if customer %}
+    <!-- ══════════════════════════════════
+         LOGGED IN STATE
+    ══════════════════════════════════ -->
+
+      <!-- Avatar + greeting -->
+      <div class="acct-drawer__profile">
+        <div class="acct-drawer__avatar" aria-hidden="true">
+          {{ customer.first_name | slice: 0 | upcase }}{{ customer.last_name | slice: 0 | upcase }}
+        </div>
+        <div class="acct-drawer__profile-info">
+          <p class="acct-drawer__greeting">Hola, <strong>{{ customer.first_name }}</strong> ✨</p>
+          <p class="acct-drawer__email">{{ customer.email }}</p>
+          <span class="acct-drawer__badge">JSG VIP MEMBER</span>
+        </div>
+      </div>
+
+      <!-- Stats row -->
+      {%- assign order_count = customer.orders.size -%}
+      {%- assign total_spent = 0 -%}
+      {%- for o in customer.orders -%}
+        {%- assign total_spent = total_spent | plus: o.total_price -%}
+      {%- endfor -%}
+      <div class="acct-drawer__stats">
+        <div class="acct-drawer__stat">
+          <span class="acct-drawer__stat-num">{{ order_count }}</span>
+          <span class="acct-drawer__stat-label">Pedidos</span>
+        </div>
+        <div class="acct-drawer__stat-div"></div>
+        <div class="acct-drawer__stat">
+          <span class="acct-drawer__stat-num">{{ total_spent | money }}</span>
+          <span class="acct-drawer__stat-label">Total gastado</span>
+        </div>
+      </div>
+
+      <!-- Quick nav links -->
+      <nav class="acct-drawer__nav" aria-label="Navegación de cuenta">
+        <a href="{{ routes.account_url }}" class="acct-drawer__nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Panel de Cuenta
+          <svg class="acct-drawer__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a href="{{ routes.account_url }}#account-orders" class="acct-drawer__nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Mis Pedidos
+          <svg class="acct-drawer__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a href="{{ routes.account_addresses_url }}" class="acct-drawer__nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Mis Direcciones
+          <svg class="acct-drawer__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </nav>
+
+      <!-- Recent orders mini-list -->
+      {%- if customer.orders.size > 0 -%}
+        <div class="acct-drawer__section-label">Pedidos recientes</div>
+        <div class="acct-drawer__orders">
+          {%- for order in customer.orders limit: 3 -%}
+            <a href="{{ order.customer_url }}" class="acct-drawer__order-item">
+              <div class="acct-drawer__order-info">
+                <span class="acct-drawer__order-name">{{ order.name }}</span>
+                <span class="acct-drawer__order-date">{{ order.created_at | date: '%d %b %Y' }}</span>
+              </div>
+              <div class="acct-drawer__order-right">
+                <span class="acct-drawer__order-price">{{ order.total_price | money }}</span>
+                {%- assign fs = order.financial_status -%}
+                {%- if fs == 'paid' -%}
+                  <span class="acct-drawer__order-status status--paid">Pagado</span>
+                {%- elsif fs == 'pending' -%}
+                  <span class="acct-drawer__order-status status--pending">Pendiente</span>
+                {%- elsif fs == 'refunded' or fs == 'partially_refunded' -%}
+                  <span class="acct-drawer__order-status status--refunded">Reembolsado</span>
+                {%- else -%}
+                  <span class="acct-drawer__order-status status--other">{{ fs | capitalize }}</span>
+                {%- endif -%}
+              </div>
+            </a>
+          {%- endfor -%}
+        </div>
+        {%- if customer.orders.size > 3 -%}
+          <a href="{{ routes.account_url }}" class="acct-drawer__see-all">
+            Ver todos los pedidos ({{ customer.orders.size }}) →
+          </a>
+        {%- endif -%}
+      {%- else -%}
+        <div class="acct-drawer__empty-orders">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".4"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+          <p>Aún no tienes pedidos</p>
+          <a href="/collections/all" class="acct-drawer__shop-link">Ver catálogo →</a>
+        </div>
+      {%- endif -%}
+
+      <!-- Logout -->
+      <div class="acct-drawer__footer">
+        <a href="{{ routes.account_logout_url }}" class="acct-drawer__logout">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Cerrar Sesión
+        </a>
+      </div>
+
+    {% else %}
+    <!-- ══════════════════════════════════
+         GUEST / NOT LOGGED IN STATE
+    ══════════════════════════════════ -->
+
+      <!-- Brand inside drawer -->
+      <div class="acct-drawer__guest-brand">
+        <img src="{{ 'jsg-logo.png' | asset_url }}" alt="JSG GOLD" height="44">
+        <div>
+          <p class="acct-drawer__guest-title">Bienvenido a JSG GOLD</p>
+          <p class="acct-drawer__guest-sub">Inicia sesión o crea tu cuenta VIP</p>
+        </div>
+      </div>
+
+      <!-- Benefit pills -->
+      <div class="acct-drawer__pills">
+        <span class="acct-drawer__pill">📦 Rastrear Pedidos</span>
+        <span class="acct-drawer__pill">📜 Historial de Compras</span>
+        <span class="acct-drawer__pill">👑 Descuentos VIP</span>
+      </div>
+
+      <!-- Login Form (inline) -->
+      <div id="acct-drawer-login-form">
+        {%- form 'customer_login', id: 'acct-drawer-form' -%}
+
+          {%- if form.errors -%}
+            <div class="acct-drawer__error">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <div class="acct-drawer__field">
+            <label for="acct-drawer-email">Correo Electrónico</label>
+            <input type="email"
+                   name="customer[email]"
+                   id="acct-drawer-email"
+                   autocomplete="email"
+                   autocapitalize="off"
+                   placeholder="correo@ejemplo.com"
+                   required>
+          </div>
+
+          <div class="acct-drawer__field">
+            <label for="acct-drawer-password">Contraseña</label>
+            <input type="password"
+                   name="customer[password]"
+                   id="acct-drawer-password"
+                   autocomplete="current-password"
+                   placeholder="••••••••"
+                   required>
+          </div>
+
+          <button type="submit" class="acct-drawer__login-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            Iniciar Sesión
+          </button>
+
+          <a href="{{ routes.account_login_url }}#recover" class="acct-drawer__forgot">
+            ¿Olvidaste tu contraseña?
+          </a>
+
+        {%- endform -%}
+      </div>
+
+      <!-- Divider -->
+      <div class="acct-drawer__divider"><span>o</span></div>
+
+      <!-- Register CTA -->
+      <a href="{{ routes.account_register_url }}" class="acct-drawer__register-btn">
+        Crear cuenta VIP gratis
+      </a>
+
+      <!-- Pedidos & Perfil quick links (for logged-out users) -->
+      <div class="acct-drawer__guest-links">
+        <a href="{{ routes.account_login_url }}" class="acct-drawer__guest-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+          Pedidos
+        </a>
+        <a href="{{ routes.account_login_url }}" class="acct-drawer__guest-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Perfil
+        </a>
+      </div>
+
+    {% endif %}
+
+  </div><!-- /.acct-drawer__body -->
+</div>
+
+<script>
+  (() => {
+    const overlay = document.getElementById('acct-drawer-overlay');
+    const drawer  = document.getElementById('acct-drawer');
+    const closeBtn = document.getElementById('acct-drawer-close');
+    const trigger = document.querySelector('.account-icon-btn');
+
+    function openDrawer() {
+      overlay.classList.add('is-open');
+      drawer.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => closeBtn && closeBtn.focus(), 80);
+    }
+
+    function closeDrawer() {
+      overlay.classList.remove('is-open');
+      drawer.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Intercept the account link — open drawer instead
+    if (trigger) {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        openDrawer();
+      });
+    }
+
+    closeBtn  && closeBtn.addEventListener('click', closeDrawer);
+    overlay   && overlay.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer.classList.contains('is-open')) closeDrawer();
+    });
+
+    // Expose globally so other scripts can open/close
+    window.JSGAccountDrawer = { open: openDrawer, close: closeDrawer };
+  })();
+</script>

@@ -54,6 +54,12 @@
   <!-- Toast Container -->
   <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
+  <!-- Checkout Login Gate Modal (global, shown to guests on checkout attempt) -->
+  {%- render 'checkout-login-modal' -%}
+
+  <!-- Account Drawer (global, triggered by account icon) -->
+  {%- render 'account-drawer' -%}
+
   <!-- WhatsApp Float Button -->
   <a href="https://api.whatsapp.com/send?phone={{ settings.whatsapp_number | default: '573023661803' | url_encode }}&text={{ settings.whatsapp_greeting | default: 'Hola JSG Gold 👋 Quiero información sobre sus joyas de Oro 18K' | url_encode }}"
      target="_blank"

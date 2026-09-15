@@ -1,56 +1,58 @@
 <!-- JSG GOLD - Luxury Customer Login Template -->
-<div class="login-page container" style="max-width: 520px; padding: 4.5rem 1.5rem; margin: 0 auto;">
-  
-  <div style="background: radial-gradient(circle at 50% 0%, #171A23 0%, #0A0B0E 100%); border: 1px solid rgba(212,175,55,0.35); border-radius: 16px; padding: 2.5rem 2rem; box-shadow: 0 20px 45px rgba(0,0,0,0.5); position: relative; overflow: hidden;">
-    
-    <!-- Top ambient glow line -->
-    <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);"></div>
+<div class="jsg-login-page">
 
-    <!-- Brand Emblem -->
-    <div style="text-align: center; margin-bottom: 1.5rem;">
-      <a href="{{ routes.root_url }}" style="display: inline-block; text-decoration: none;">
-        <img src="{{ 'jsg-logo.png' | asset_url }}" alt="JSG GOLD" width="65" height="50" style="height: 52px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(212,175,55,0.4)); margin-bottom: 8px;">
-        <span style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; letter-spacing: 2.5px; color: #ffffff; display: block; line-height: 1;">
-          JSG GOLD
-        </span>
+  <div class="jsg-login-card">
+
+    <!-- Brand -->
+    <div class="jsg-login-brand">
+      <a href="{{ routes.root_url }}" style="display: contents;">
+        <img src="{{ 'jsg-logo.png' | asset_url }}" alt="JSG GOLD">
+        <div class="jsg-login-brand-text">
+          <span class="jsg-login-brand-name">JSG GOLD</span>
+          <span class="jsg-login-brand-sub">ORO LAMINADO 18K</span>
+        </div>
       </a>
-      <span style="color: var(--gold-light); font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; display: block; margin-top: 6px;">
-        ✦ ACCESO EXCLUSIVO CLIENTES VIP ✦
+    </div>
+
+    <!-- Title -->
+    <h1 class="jsg-login-title">Iniciar Sesión</h1>
+    <p class="jsg-login-subtitle">
+      Accede a tu cuenta VIP · <a href="{{ routes.account_register_url }}">Crear cuenta gratis</a>
+    </p>
+
+    <!-- Benefit pills -->
+    <div class="jsg-login-benefits">
+      <span class="jsg-login-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Pago seguro
+      </span>
+      <span class="jsg-login-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Rastreo de pedidos
+      </span>
+      <span class="jsg-login-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Beneficios VIP
       </span>
     </div>
 
-    <!-- Benefits Badges -->
-    <div style="display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); border: 1px solid rgba(212,175,55,0.15); border-radius: 10px; padding: 10px 8px; margin-bottom: 1.75rem; font-size: 0.75rem; color: #D0D5DD;">
-      <div style="display: flex; align-items: center; gap: 5px;">
-        <span style="color: var(--gold-primary);">📦</span> Rastrear Pedidos
-      </div>
-      <div style="display: flex; align-items: center; gap: 5px;">
-        <span style="color: var(--gold-primary);">📜</span> Historial de Compra
-      </div>
-      <div style="display: flex; align-items: center; gap: 5px;">
-        <span style="color: var(--gold-primary);">👑</span> Descuentos VIP
-      </div>
-    </div>
-
-    <!-- Customer Login Form -->
+    <!-- Login Form -->
     <div id="CustomerLoginForm">
       {%- form 'customer_login' -%}
+
         {%- if form.errors -%}
-          <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid #EF4444; color: #FCA5A5; padding: 12px 16px; border-radius: 8px; margin-bottom: 1.25rem; font-size: 0.85rem;">
-            {{ form.errors | default_errors }}
-          </div>
+          <ul class="jsg-login-errors">
+            {% for error in form.errors %}
+              <li>{{ form.errors.messages[error] }}</li>
+            {% endfor %}
+          </ul>
         {%- endif -%}
 
-        <div style="margin-bottom: 1.25rem;">
-          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #E5E7EB; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;" for="CustomerEmail">
-            Correo Electrónico
-          </label>
+        <div class="jsg-login-field">
+          <label for="CustomerEmail">Correo Electrónico</label>
           <input type="email"
                  name="customer[email]"
                  id="CustomerEmail"
-                 style="width: 100%; background: #060709; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 14px 16px; color: #ffffff; font-size: 0.95rem; outline: none; transition: border-color 0.2s;"
-                 onfocus="this.style.borderColor='#D4AF37'"
-                 onblur="this.style.borderColor='rgba(212,175,55,0.3)'"
                  autocomplete="email"
                  autocapitalize="off"
                  autocorrect="off"
@@ -58,79 +60,73 @@
                  required>
         </div>
 
-        <div style="margin-bottom: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <label style="font-size: 0.82rem; font-weight: 700; color: #E5E7EB; text-transform: uppercase; letter-spacing: 1px;" for="CustomerPassword">
-              Contraseña
-            </label>
-            <a href="#recover" id="RecoverPasswordBtn" style="font-size: 0.78rem; color: var(--gold-light); text-decoration: underline;">
-              ¿Olvidaste tu contraseña?
-            </a>
-          </div>
+        <div class="jsg-login-field">
+          <label for="CustomerPassword">Contraseña</label>
           <input type="password"
                  name="customer[password]"
                  id="CustomerPassword"
-                 style="width: 100%; background: #060709; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 14px 16px; color: #ffffff; font-size: 0.95rem; outline: none; transition: border-color 0.2s;"
-                 onfocus="this.style.borderColor='#D4AF37'"
-                 onblur="this.style.borderColor='rgba(212,175,55,0.3)'"
                  autocomplete="current-password"
                  placeholder="••••••••"
                  required>
         </div>
 
-        <button type="submit" class="btn btn-gold shine-hover" style="width: 100%; padding: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.95rem;">
+        <button type="submit" class="jsg-login-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
           Iniciar Sesión
         </button>
+
+        <a href="#recover" id="RecoverPasswordBtn" class="jsg-login-forgot">
+          ¿Olvidaste tu contraseña?
+        </a>
+
       {%- endform -%}
     </div>
 
     <!-- Recover Password Form (hidden by default) -->
     <div id="RecoverPasswordForm" style="display: none;">
-      <h3 style="color: #ffffff; font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 8px; text-transform: uppercase;">
-        Recuperar Contraseña
-      </h3>
-      <p style="color: #9CA3AF; font-size: 0.85rem; margin-bottom: 1.25rem;">
-        Ingresa tu correo y te enviaremos un enlace seguro para restablecer tu contraseña.
-      </p>
+      <h2 class="jsg-login-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Recuperar Contraseña</h2>
+      <p class="jsg-login-subtitle">Ingresa tu correo y te enviaremos un enlace seguro.</p>
 
       {%- form 'recover_customer_password' -%}
         {%- if form.errors -%}
-          <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid #EF4444; color: #FCA5A5; padding: 10px 14px; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem;">
-            {{ form.errors | default_errors }}
+          <ul class="jsg-login-errors">
+            {% for error in form.errors %}
+              <li>{{ form.errors.messages[error] }}</li>
+            {% endfor %}
+          </ul>
+        {%- endif -%}
+        {%- if form.posted_successfully? -%}
+          <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #34D399; padding: 0.85rem 1rem; border-radius: 10px; font-size: 0.85rem; margin-bottom: 1rem; text-align: center;">
+            ✓ Te enviamos un correo con las instrucciones.
           </div>
         {%- endif -%}
 
-        <div style="margin-bottom: 1.25rem;">
-          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #E5E7EB; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;" for="RecoverEmail">
-            Correo Electrónico
-          </label>
-          <input type="email"
-                 name="email"
-                 id="RecoverEmail"
-                 style="width: 100%; background: #060709; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; padding: 14px 16px; color: #ffffff; font-size: 0.95rem; outline: none;"
-                 autocomplete="email"
-                 required>
+        <div class="jsg-login-field">
+          <label for="RecoverEmail">Correo Electrónico</label>
+          <input type="email" name="email" id="RecoverEmail" autocomplete="email" required placeholder="ejemplo@correo.com">
         </div>
 
-        <button type="submit" class="btn btn-gold shine-hover" style="width: 100%; padding: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">
+        <button type="submit" class="jsg-login-btn" style="margin-bottom: 0.75rem;">
           Enviar Enlace de Recuperación
         </button>
 
-        <button type="button" id="HideRecoverPasswordBtn" style="background: none; border: none; color: #9CA3AF; text-decoration: underline; font-size: 0.85rem; width: 100%; cursor: pointer;">
-          Cancelar y Volver al Inicio de Sesión
+        <button type="button" id="HideRecoverPasswordBtn" class="jsg-login-forgot" style="background: none; border: none; cursor: pointer; width: 100%;">
+          ← Volver al inicio de sesión
         </button>
       {%- endform -%}
     </div>
 
-    <!-- Register Link Divider -->
-    <div style="text-align: center; margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-      <p style="font-size: 0.88rem; color: #9CA3AF; margin-bottom: 10px;">
-        ¿Aún no tienes cuenta en JSG GOLD?
-      </p>
-      <a href="{{ routes.account_register_url }}" class="btn btn-dark" style="display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 13px; font-size: 0.88rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--gold-border);">
-        Crear Cuenta de Cliente VIP
-      </a>
-    </div>
+    <!-- Divider -->
+    <div class="jsg-login-divider"><span>o</span></div>
+
+    <!-- Register CTA -->
+    <a href="{{ routes.account_register_url }}" class="mobile-menu-btn-secondary" style="text-align: center; display: block;">
+      Crear cuenta VIP gratis
+    </a>
 
   </div>
 </div>

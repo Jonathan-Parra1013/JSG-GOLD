@@ -77,10 +77,21 @@
       <!-- CTA Buttons: Online Checkout (PSE/Cards) & WhatsApp COD -->
       <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
         <!-- Botón 1: Checkout Oficial Shopify para PSE / Tarjetas -->
+        {%- if customer -%}
         <a href="/checkout" class="btn btn-gold btn-block shine-hover" style="text-decoration: none; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 800; font-size: 0.92rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 14px;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
           Pagar con Tarjeta / PSE
         </a>
+        {%- else -%}
+        <button type="button"
+                class="btn btn-gold btn-block shine-hover"
+                id="drawer-checkout-gate-btn"
+                onclick="window.JSGCheckoutGate && window.JSGCheckoutGate.open()"
+                style="display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 800; font-size: 0.92rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 14px; width: 100%;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Pagar con Tarjeta / PSE
+        </button>
+        {%- endif -%}
 
         <!-- Botón 2: WhatsApp Pago Contra Entrega -->
         <button class="btn btn-whatsapp btn-block shine-hover"

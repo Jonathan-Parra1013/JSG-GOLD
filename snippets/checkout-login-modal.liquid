@@ -1,0 +1,138 @@
+{%- comment -%}
+  Checkout Login Gate Modal — JSG GOLD
+  Shown when a guest tries to proceed to /checkout.
+  Triggered via JS: window.JSGCheckoutGate.open()
+{%- endcomment -%}
+
+<div id="checkout-gate-backdrop"
+     class="checkout-gate-backdrop"
+     aria-hidden="true"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="checkout-gate-title">
+
+  <div class="checkout-gate-modal" id="checkout-gate-modal">
+
+    <!-- Ambient gold line top -->
+    <div class="checkout-gate-glow-line" aria-hidden="true"></div>
+
+    <!-- Close button -->
+    <button class="checkout-gate-close"
+            id="checkout-gate-close-btn"
+            aria-label="Cerrar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Brand emblem -->
+    <div class="checkout-gate-brand">
+      <div class="checkout-gate-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <span class="checkout-gate-eyebrow">&#x2736; ACCESO SEGURO &#x2736;</span>
+    </div>
+
+    <!-- Heading -->
+    <h2 class="checkout-gate-title" id="checkout-gate-title">
+      Inicia sesion para continuar tu compra
+    </h2>
+    <p class="checkout-gate-subtitle">
+      Accede a tu cuenta JSG GOLD para completar el pago de forma segura y guardar tu historial de pedidos.
+    </p>
+
+    <!-- Benefit pills -->
+    <div class="checkout-gate-benefits">
+      <span class="checkout-gate-pill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Pago seguro
+      </span>
+      <span class="checkout-gate-pill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Rastreo de pedidos
+      </span>
+      <span class="checkout-gate-pill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Beneficios VIP
+      </span>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="checkout-gate-actions">
+      <a href="{{ routes.account_login_url }}?return_url=/checkout"
+         class="btn btn-gold shine-hover checkout-gate-btn-primary"
+         id="checkout-gate-login-btn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+          <polyline points="10 17 15 12 10 7"/>
+          <line x1="15" y1="12" x2="3" y2="12"/>
+        </svg>
+        Iniciar Sesion
+      </a>
+
+      <a href="{{ routes.account_register_url }}?return_url=/checkout"
+         class="checkout-gate-btn-secondary"
+         id="checkout-gate-register-btn">
+        No tienes cuenta? <strong>Crear cuenta VIP gratis</strong>
+      </a>
+    </div>
+
+    <!-- Guest disclaimer -->
+    <p class="checkout-gate-disclaimer">
+      Tu carrito se guardara al iniciar sesion.
+    </p>
+
+  </div>
+</div>
+
+<script>
+  (() => {
+    const backdrop = document.getElementById('checkout-gate-backdrop');
+    const closeBtn = document.getElementById('checkout-gate-close-btn');
+
+    window.JSGCheckoutGate = {
+      open() {
+        backdrop.classList.add('is-open');
+        backdrop.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => closeBtn && closeBtn.focus(), 50);
+      },
+      close() {
+        backdrop.classList.remove('is-open');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    };
+
+    // Close on backdrop click
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) window.JSGCheckoutGate.close();
+    });
+
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.classList.contains('is-open')) {
+        window.JSGCheckoutGate.close();
+      }
+    });
+
+    // Close button
+    closeBtn && closeBtn.addEventListener('click', () => window.JSGCheckoutGate.close());
+  })();
+</script>
